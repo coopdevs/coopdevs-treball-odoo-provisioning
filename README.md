@@ -91,4 +91,5 @@ Arguments:
   -h --host: LXC container host name. Ex.: local.lxc.org"
 ```
 
+
 **Name and host are required.** Default template is Ubuntu and default release is Xenial (16.04 LTS)
