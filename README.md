@@ -2,10 +2,22 @@
 
 These are [Ansible](http://docs.ansible.com/ansible/) playbooks (scripts) for managing an [Odoo](https://github.com/odoo/odoo) server.
 
+#### Using LXC
+
 You can create a local container instance with LXC using the `lxc/lxc-create.sh` script.
 Run:
 
 `./lxc/lxc-create.sh -n odoo-dev -t ubuntu -r xenial -h local.ofn.org`
+
+## Expected state
+
+To execute the first playbook `sysadmins.yml` to create the default user and the sysadmins users is needed that SSH root login has allowed without password. If you have the password os your root user, you can run `ssh-copy-id root@YOUR_HOST` like:
+
+` user@local.odoo.org`
+
+First state:
+- Permit Root SSH login (modify `/etc/ssh/sshd_config`)
+- Access without password (copy your SSH key)
 
 ## Playbooks
 
