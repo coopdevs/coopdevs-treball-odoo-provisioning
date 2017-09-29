@@ -114,5 +114,18 @@ echo "Installing Python2.7"
 sudo lxc-attach -n "$NAME" -- sudo apt update
 sudo lxc-attach -n "$NAME" -- sudo apt install -y python2.7
 
+# Allow SSH ROOT access
+sudo lxc-attach -n "$NAME" -- /bin/sed -i 's/PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
+sudo lxc-attach -n "$NAME" -- /bin/sed -i 's/PermitRootLogin without-password/PermitRootLogin yes/' /etc/ssh/sshd_config
+
+sudo lxc-attach -n "$NAME" -- passwd root <<EOL
+root
+root
+EOL
+
+sudo lxc-attach -n "$NAME" -- userdel ubuntu
+sudo lxc-stop -n "$NAME"
+sudo lxc-start -n "$NAME"
 # Copy ssh key
-ssh-copy-id ubuntu@"$HOST"
+echo "*******\n\n\nroot password: root\n\n\n*******"
+ssh-copy-id root@"$HOST"
