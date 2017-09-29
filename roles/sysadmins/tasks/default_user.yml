@@ -1,0 +1,20 @@
+---
+- name: create default_user
+  user:
+    name=odoo
+    append=yes
+    state=present
+    shell=/bin/bash
+
+- name: add default_user  sudoer file
+  become: yes
+  template:
+    src=odoo.sudoer.j2
+    dest=/etc/sudoers.d/1-odoo
+    mode=0440
+
+- name: remove default_user SSH keys
+  become: yes
+  file:
+    path: /home/odoo/.ssh/authorized_keys
+    state: absent

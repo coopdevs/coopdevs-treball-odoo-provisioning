@@ -1,0 +1,28 @@
+---
+- name: AdminUsers - Create user
+  become: yes
+  user:
+    name="{{ item.key }}"
+    groups=odoo
+    append=yes
+    state="{{ item.value.state }}"
+    shell=/bin/bash
+  with_dict: "{{ admin_users }}"
+
+- name: AdminUsers - copy ssh keys
+  become: yes
+  authorized_key:
+    user={{ item.key }}
+    key="{{ lookup('file', item.value.key) }}"
+    state={{ item.value.state }}
+  when: item.value.state == "present"
+  with_dict: "{{ admin_users }}"
+
+- name: AdminUsers - add custom sudoer file
+  become: yes
+  template:
+    src=sysadmin.sudoer.j2
+    dest="/etc/sudoers.d/90-{{ item.key }}"
+    mode=0440
+  when: item.value.state == "present"
+  with_dict: "{{ admin_users }}"
