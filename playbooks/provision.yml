@@ -1,7 +1,6 @@
 ---
 - name: provision
   hosts: odoo_servers
-  remote_user: "{{ user }}"
 
   roles:
     - role: common

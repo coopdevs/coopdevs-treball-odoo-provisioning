@@ -10,14 +10,9 @@ sysadmins:
     state: present
 
 users:
-  odoo:
-    key: "{{ lookup('env', 'HOME' ) }}/.ssh/id_rsa.pub" # Needed to provision and deploy
-    state: present
-    group:
-  dani:
+  dani2:
     key: ../pub_keys/dani.pub
     state: present
-    group: odoo
 
 custom_modules_repo: https://github.com/danypr92/odoo-organization-custom-modules.git
 custom_modules_repo_branch: master

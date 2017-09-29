@@ -1,2 +1,5 @@
 # odoo needs passwordless sudo functionality.
 odoo ALL=(ALL) NOPASSWD:ALL
+
+# odoo group need passwordless sudo for concrete commands
+%odoo ALL=(ALL) NOPASSWD: /bin/systemctl status odoo.service, /bin/systemctl start odoo.service, /bin/systemctl stop odoo.service, /bin/systemctl restart odoo.service
