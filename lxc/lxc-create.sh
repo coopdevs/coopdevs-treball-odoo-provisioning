@@ -127,5 +127,5 @@ sudo lxc-attach -n "$NAME" -- userdel ubuntu
 sudo lxc-stop -n "$NAME"
 sudo lxc-start -n "$NAME"
 # Copy ssh key
-echo "*******\n\n\nroot password: root\n\n\n*******"
+echo -e "*******\n\n\nroot password: root\n\n\n*******"
 ssh-copy-id root@"$HOST"

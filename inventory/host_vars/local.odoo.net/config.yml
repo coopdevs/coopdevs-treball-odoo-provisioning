@@ -4,6 +4,11 @@
 #   file: ../pub_keys/example.pub | Key file path
 #   state: present                | present to add or absent (absent to remove authorized key)
 
+sysadmins:
+  dani:
+    key: ../pub_keys/dani.pub
+    state: present
+
 users:
   odoo:
     key: "{{ lookup('env', 'HOME' ) }}/.ssh/id_rsa.pub" # Needed to provision and deploy

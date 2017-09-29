@@ -9,26 +9,27 @@ Run:
 
 ## Playbooks
 
-### Users
-`users.yml` - Create users defined in your `inventory/host_vars/YOUR_HOST/conf.yml`. The structure to declare user is:
+### Sysadmins
+`sysadmins.yml` - Create default user `odoo` and sysadmins defined in your `inventory/host_vars/YOUR_HOST/conf.yml` in a dict called `sysadmins`.
+The structure to declare user is:
 
 ```ỲAML
-users:
-  odoo:
+sysadmins:
+  myname:
     key: "{{ lookup('env', 'HOME' ) }}/.ssh/id_rsa.pub"
     state: present
-    group:
   user1:
     key: ../pub_keys/user1.pub
     state: present
-    group: odoo
 ```
 
 Use `state: absent` to remove a user.
 
-The user `odoo` always is needed. All other users need acces to odoo group to manage the system service.
+After execute this playbook the `odoo` the authorized SSH keys was removed and to acces it you can access with your sysadmin user and execute `sudo su odoo`.
+All other users need acces to odoo group to manage the system service.
 
-- Create user
+- Create default_user
+- Create all sysadmin
 - Add ssh keys
 - Add sudo permisses
 
