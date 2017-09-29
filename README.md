@@ -19,6 +19,12 @@ First state:
 - Permit Root SSH login (modify `/etc/ssh/sshd_config`)
 - Access without password (copy your SSH key)
 
+## First step: Bash script to create default_user
+
+Run `./script/default_user.sh`
+
+This script creates the `odoo` user to execute the first playbook `sysadmin.yml`
+
 ## Playbooks
 
 ### Sysadmins
