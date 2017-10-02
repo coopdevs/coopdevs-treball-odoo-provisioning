@@ -115,7 +115,7 @@ Arguments:
 
 For the first playbook (sysadmin.yml) is needed have a `odoo` user with your SSH pub key.
 
-If you not have this user but have acces like root, you can use the `default_user.sh` script. 
+If you not have this user but have acces like root, you can use the `default_user.sh` script.
 
 #### Script to create default user.
 
