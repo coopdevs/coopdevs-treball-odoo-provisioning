@@ -128,10 +128,14 @@ System state:
 ### Step 1 - SysAdmins
 
 The **first time** thet execute this playbook use the user `odoo`
+
 `ansible-playbook playbooks/sysadmins.yml -u odoo`
 
 All the next times use your personal sysadmin user:
-`ansible-playbook playbooks/sysadmins.yml -u odoo`
+
+`ansible-playbook playbooks/sysadmins.yml -u USER`
+
+USER --> Your sysadmin user name.
 
 ### Step 2 - Provision
 
