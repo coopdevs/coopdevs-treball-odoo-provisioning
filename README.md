@@ -2,28 +2,26 @@
 
 These are [Ansible](http://docs.ansible.com/ansible/) playbooks (scripts) for managing an [Odoo](https://github.com/odoo/odoo) server.
 
-#### Using LXC
+## Bash scripts
 
-You can create a local container instance with LXC using the `lxc/lxc-create.sh` script.
-Run:
+### Default User
+`scripts/default_user.yml`
 
-`./lxc/lxc-create.sh -n odoo-dev -t ubuntu -r xenial -h local.ofn.org`
+Read local SSH key and pass it to `create_user.sh` executed in the host with SSH root connection.
+You can define a env var `SSH_PATH` if yout SSH key is in a different path that default `~/.ssh/id_rsa.pub`
 
-## Expected state
+### Create User
+`script/create_user.yml`
 
-To execute the first playbook `sysadmins.yml` to create the default user and the sysadmins users is needed that SSH root login has allowed without password. If you have the password os your root user, you can run `ssh-copy-id root@YOUR_HOST` like:
+Create the default_user `odoo` and copy the SSH key (first argument) in authorized keys of the user.
+Change the SSH root login permissions.
+`
 
-` user@local.odoo.org`
+### lxc-create
+`lxc/lxc-create.sh`
 
-First state:
-- Permit Root SSH login (modify `/etc/ssh/sshd_config`)
-- Access without password (copy your SSH key)
-
-## First step: Bash script to create default_user
-
-Run `./script/default_user.sh`
-
-This script creates the `odoo` user to execute the first playbook `sysadmin.yml`
+Create a LXC container with host name and python 2.7 installed.
+Allow root SSH access and remove the default `ubuntu` user.
 
 ## Playbooks
 
@@ -85,6 +83,7 @@ custom:modules_repo_branch: master
 
 ### All
 `all.yml` - Include all other playbooks
+
 ## Requirements
 
 You will need Ansible on your machine to run the playbooks.
@@ -110,5 +109,46 @@ Arguments:
   -h --host: LXC container host name. Ex.: local.lxc.org"
 ```
 
-
 **Name and host are required.** Default template is Ubuntu and default release is Xenial (16.04 LTS)
+
+# Installation instructions
+
+For the first playbook (sysadmin.yml) is needed have a `odoo` user with your SSH pub key.
+
+If you not have this user but have acces like root, you can use the `default_user.sh` script. 
+
+#### Script to create default user.
+
+Execute the `script/default_user.sh` to create the `odoo` user and add your SSH key.
+
+System state:
+- Permit Root SSH login (modify `/etc/ssh/sshd_config`)
+- Access without password (copy your SSH key)
+
+### Step 1 - SysAdmins
+
+The **first time** thet execute this playbook use the user `odoo`
+`ansible-playbook playbooks/sysadmins.yml -u odoo`
+
+All the next times use your personal sysadmin user:
+`ansible-playbook playbooks/sysadmins.yml -u odoo`
+
+### Step 2 - Provision
+
+`ansible-playbook playbooks/provision.yml -u USER`
+
+USER --> Your sysadmin user name.
+
+### Step 3 - Deploy
+
+`ansible-playbook playbooks/deploy.yml -u USER`
+
+USER --> Your user name (not need be superuser)
+
+### Step 4 - Deploy custom modules
+
+`ansible-playbook playbooks/deploy_custom_modules.yml -u USER`
+
+USER --> Your user name (not need be superuser)
+
+
