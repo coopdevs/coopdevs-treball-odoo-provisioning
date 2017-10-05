@@ -1,0 +1,20 @@
+# Odoo systemd service
+
+[Unit]
+Description=Odoo server
+
+[Service]
+ExecStart={{ venv_path }}/bin/python {{ odoo_path }}/current/build/scripts-2.7/odoo -c {{ odoo_path }}/shared/odoo.conf
+
+# Execute service like user
+User=odoo
+Group=odoo
+
+# Restart service after all crashes but wait 5 secontds between restarts.
+Restart=always
+RestartSec=5
+
+# output stdout and stderr to syslog. (/var/log/messages)
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=odoo

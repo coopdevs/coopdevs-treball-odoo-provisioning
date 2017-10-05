@@ -6,6 +6,7 @@
   become: yes
   with_items:
     - python-dev
+    - virtualenv
     - libxml2
     - libxml2-dev
     - libxslt1-dev

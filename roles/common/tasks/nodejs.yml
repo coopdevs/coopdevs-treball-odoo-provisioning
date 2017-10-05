@@ -1,0 +1,21 @@
+---
+- name: Install nodejs packages
+  apt:
+    pkg={{ item }}
+    state=present
+  become: yes
+  with_items:
+    - nodejs
+    - npm
+
+- name: Install Less CSS via nodejs
+  become: yes
+  npm:
+    name: less
+    version: 2.7.2
+    global: yes
+
+- name: create node sym link
+  become: yes
+  shell: sudo ln -sf /usr/bin/nodejs /usr/bin/node
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_version != '14.04'
