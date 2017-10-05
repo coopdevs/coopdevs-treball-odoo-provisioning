@@ -2,10 +2,9 @@
 
 - name: Deploy Custom Modules
   hosts: odoo_servers
-  remote_user: "{{ user }}"
 
   vars:
-    ansistrano_deploy_to: "{{ ansible_env.HOME }}/apps/odoo-custom-modules"
+    ansistrano_deploy_to: "{{ custom_modules_path }}"
     ansistrano_keep_releases: 3
     ansistrano_deploy_via: git
     ansistrano_git_repo: "{{ custom_modules_repo }}"

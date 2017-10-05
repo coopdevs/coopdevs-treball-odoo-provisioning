@@ -11,10 +11,10 @@
 - name: Install Python requitements
   pip:
     requirements: "{{ ansistrano_release_path.stdout }}/requirements.txt"
-    virtualenv: "{{ ansible_env.HOME }}/odoo-venv"
+    virtualenv: "{{ venv_path }}"
 
 - name: Build Odoo exec
-  shell: "cd {{ansistrano_release_path.stdout }} && {{ ansible_env.HOME }}/odoo-venv/bin/python setup.py build"
+  shell: "cd {{ansistrano_release_path.stdout }} && {{ venv_path }}/bin/python setup.py build"
 
 - name: Install Odoo dependencies
-  shell: "cd {{ansistrano_release_path.stdout }} && {{ ansible_env.HOME }}/odoo-venv/bin/python setup.py install"
+  shell: "cd {{ansistrano_release_path.stdout }} && {{ venv_path }}/bin/python setup.py install"

@@ -6,7 +6,7 @@
   vars:
     odoo_version: 10.0
     odoo_release: 20170914
-    ansistrano_deploy_to: "{{ ansible_env.HOME }}/apps/odoo"
+    ansistrano_deploy_to: "{{ odoo_path }}"
     ansistrano_keep_releases: 3
     ansistrano_deploy_via: download_unarchive
     ansistrano_get_url: "https://nightly.odoo.com/10.0/nightly/src/odoo_{{ odoo_version }}.{{ odoo_release }}.tar.gz" 
