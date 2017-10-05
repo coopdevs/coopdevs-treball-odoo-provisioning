@@ -1,0 +1,18 @@
+---
+- name: Add Odoo config
+  template:
+    src=odoo.conf.j2
+    dest="{{ odoo_path }}/shared/odoo.conf"
+    mode=0774
+    #group=odoo
+
+
+- name: Restart service (command)
+  command: "sudo systemctl restart odoo.service"
+
+# The modul not works with sudoers group permissons %
+  #- name: Restart service
+  #become: yes
+  #systemd:
+    # name: odoo.service
+    # state: restarted
