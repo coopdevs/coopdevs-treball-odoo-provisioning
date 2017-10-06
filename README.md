@@ -2,32 +2,42 @@
 
 These are [Ansible](http://docs.ansible.com/ansible/) playbooks (scripts) for managing an [Odoo](https://github.com/odoo/odoo) server.
 
+## Requirements
+
+You will need Ansible on your machine to run the playbooks.
+These playbooks will install the PostgreSQL database, NodeJS and Python virtualenv to manage python packages. 
+
+It has currently been tested on **Ubuntu 16.04 Xenial (64 bit)**.
+
+If you like run the `lxc-create` script, you need install [LXC](https://linuxcontainers.org/).
+
+
 ## Bash scripts
 
 ### Default User
 `scripts/default_user.yml`
 
-Read local SSH key and pass it to `create_user.sh` executed in the host with SSH root connection.
-You can define a env var `SSH_PATH` if yout SSH key is in a different path that default `~/.ssh/id_rsa.pub`
+Reads local SSH key and passes it to `create_user.sh` executed in the host with SSH root connection.
+You can define an env var `SSH_PATH` if your SSH key is stored in another path other than the default `~/.ssh/id_rsa.pub`
 
 ### Create User
 `script/create_user.yml`
 
-Create the default_user `odoo` and copy the SSH key (first argument) in authorized keys of the user.
-Change the SSH root login permissions.
+Creates the default_user `odoo` and copies the SSH key (first argument) in authorized keys of the user.
+Changes the SSH root login permissions.
 `
 
 ### lxc-create
 `lxc/lxc-create.sh`
 
-Create a LXC container with host name and python 2.7 installed.
-Allow root SSH access and remove the default `ubuntu` user.
+Creates a LXC container with host name and python 2.7 installed.
+Allows root SSH access and removes the default `ubuntu` user.
 
 ## Playbooks
 
 ### Sysadmins
-`sysadmins.yml` - Create default user `odoo` and sysadmins defined in your `inventory/host_vars/YOUR_HOST/conf.yml` in a dict called `sysadmins`.
-The structure to declare user is:
+`sysadmins.yml` - Creates default user `odoo` and sysadmins defined in your `inventory/host_vars/YOUR_HOST/conf.yml` in a dictionary called `sysadmins`.
+The structure to declare a user is:
 
 ```ỲAML
 sysadmins:
@@ -41,24 +51,27 @@ sysadmins:
 
 Use `state: absent` to remove a user.
 
-After execute this playbook the `odoo` the authorized SSH keys was removed and to acces it you can access with your sysadmin user and execute `sudo su odoo`.
-All other users need acces to odoo group to manage the system service.
+After executing this playbook the `odoo`'s authorized SSH keys is removed. To log in to the server as `odoo` user you should login with your sysadmin user and execute `sudo su odoo`.
+All other users must belong to `odoo` group to manage the system service.
 
+TASKS:
 - Create default_user
 - Create all sysadmin
 - Add ssh keys
 - Add sudo permisses
 
 ### Provision
-`provision.yml` - Install and configure all required software on the server.
+`provision.yml` - Installs and configures all required software on the server.
 
+TASKS:
 - Install common packages
 - Install PostgreSQL database and create a user
 - Install NodeJS and LESS
 
 ### Deploy
-`deploy.yml` - Deploy source code from Odoo Nightly and install Python requirements.
+`deploy.yml` - Deploys source code from Odoo Nightly and installs Python requirements.
 
+TASKS:
 - Install and create VirtualEnv
 - Ansistrano deploy:
   - Download the source code
@@ -67,7 +80,7 @@ All other users need acces to odoo group to manage the system service.
 - Add systemd service
 
 ### Deploy Custom Modules
-`deploy_custom_modules.yml` - Deploy the custom or thirdy part modules that you need.
+`deploy_custom_modules.yml` - Deploys the custom or thirdy part modules that you need.
 
 You can make a repository with submodules pointing your module repository. [Like in this example](https://github.com/danypr92/odoo-organization-custom-modules)
 
@@ -78,6 +91,7 @@ custom_modules_repo: https://github.com/danypr92/odoo-organization-custom-module
 custom:modules_repo_branch: master
 ```
 
+TASKS:
 - Ansistrano git deploy.
 - Update odoo.service to add addons.
 
@@ -85,31 +99,22 @@ custom:modules_repo_branch: master
 
 ### Odoo Config
 
-- Create Odoo configuration file
-- Restart Odoo service
+- Creates Odoo configuration file
+- Restarts Odoo service
 
 ### Common
 
-- Create users (developers)
-- Install system packages
-- Create folder structure and configure permissions
-- Create virtualenv
-- Install Postgres and NodeJS
-- Add service unit
+- Creates users (developers)
+- Installs system packages
+- Creates folder structure and configures permissions
+- Creates virtualenv
+- Installs Postgres and NodeJS
+- Adds service unit
 
 ### Sysadmin
 
-- Create default user `odoo`
-- Create sysadmins with permissions
-
-## Requirements
-
-You will need Ansible on your machine to run the playbooks.
-These playbooks will install the PostgreSQL database and Python virtualenv to manage python packages. 
-
-It has currently been tested on **Ubuntu 16.04 Xenial (64 bit)**.
-
-If you like run the `lxc-create` script, you need install [LXC](https://linuxcontainers.org/).
+- Creates default user `odoo`
+- Creates sysadmins with permissions
 
 ## Development - Using LXC containers
 
@@ -177,17 +182,19 @@ USER --> Your user name (not need be superuser)
 
 ### Default User `odoo`
 
-The default user `odoo` is for execute the Odoo service and is a superuser.
+Used to execute `odoo.service` and is a a superuser.
 
 ### Sysadmins
 
-The sysadmins are the superusers of the environment. They have `sudo` access without password for all commands and are in `odoo` group.
+The sysadmins are the superusers of the environment.
+They have `sudo` access without password for all commands.
 
 **They can execute `sysadmins.yml`, `provision.yml`, `deploy.yml` and `deploy_custom_modules.yml` playbooks.**
 
 ### Users (Developers)
 
-The users are users without `sudo` permissions. They are in the `odoo` group and can execute the next commands withous password in `sudo` mode:
+They are users without `sudo` permissions.
+They are in the `odoo` group and can execute the next commands withous password in `sudo` mode:
 
 ```
 sudo systemctl start odoo.service
