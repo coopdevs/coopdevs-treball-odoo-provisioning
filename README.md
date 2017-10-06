@@ -81,8 +81,26 @@ custom:modules_repo_branch: master
 - Ansistrano git deploy.
 - Update odoo.service to add addons.
 
-### All
-`all.yml` - Include all other playbooks
+## Roles
+
+### Odoo Config
+
+- Create Odoo configuration file
+- Restart Odoo service
+
+### Common
+
+- Create users (developers)
+- Install system packages
+- Create folder structure and configure permissions
+- Create virtualenv
+- Install Postgres and NodeJS
+- Add service unit
+
+### Sysadmin
+
+- Create default user `odoo`
+- Create sysadmins with permissions
 
 ## Requirements
 
@@ -155,4 +173,25 @@ USER --> Your user name (not need be superuser)
 
 USER --> Your user name (not need be superuser)
 
+## System Administration
 
+* Default User `odoo`
+
+The default user `odoo` is for execute the Odoo service and is a superuser.
+
+* Sysadmins
+
+The sysadmins are the superusers of the environment. They have `sudo` access without password for all commands and are in `odoo` group.
+
+**They can execute `sysadmins.yml`, `provision.yml`, `deploy.yml` and `deploy_custom_modules.yml` playbooks.**
+
+* Users (Developers)
+
+The users are users without `sudo` permissions. They are in the `odoo` group and can execute the next commands withous password in `sudo` mode:
+
+```
+sudo systemctl start odoo.service
+sudo systemctl stop odoo.service
+sudo systemctl status odoo.service
+sudo systemctl restart odoo.service
+```
