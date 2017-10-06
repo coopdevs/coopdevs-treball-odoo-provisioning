@@ -196,4 +196,4 @@ sudo systemctl status odoo.service
 sudo systemctl restart odoo.service
 ```
 
-** They can execute `deploy.yml` and `deploy_custom_modules.yml` playbooks.**
+**They can execute `deploy.yml` and `deploy_custom_modules.yml` playbooks.**
