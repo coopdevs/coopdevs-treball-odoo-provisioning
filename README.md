@@ -175,17 +175,17 @@ USER --> Your user name (not need be superuser)
 
 ## System Administration
 
-* Default User `odoo`
+### Default User `odoo`
 
 The default user `odoo` is for execute the Odoo service and is a superuser.
 
-* Sysadmins
+### Sysadmins
 
 The sysadmins are the superusers of the environment. They have `sudo` access without password for all commands and are in `odoo` group.
 
 **They can execute `sysadmins.yml`, `provision.yml`, `deploy.yml` and `deploy_custom_modules.yml` playbooks.**
 
-* Users (Developers)
+### Users (Developers)
 
 The users are users without `sudo` permissions. They are in the `odoo` group and can execute the next commands withous password in `sudo` mode:
 
