@@ -25,7 +25,6 @@ You can define an env var `SSH_PATH` if your SSH key is stored in another path o
 
 Creates the default_user `odoo` and copies the SSH key (first argument) in authorized keys of the user.
 Changes the SSH root login permissions.
-`
 
 ### lxc-create
 `lxc/lxc-create.sh`
@@ -41,11 +40,11 @@ The structure to declare a user is:
 
 ```ỲAML
 sysadmins:
-  myname:
+  susadmin1:
     key: "{{ lookup('env', 'HOME' ) }}/.ssh/id_rsa.pub"
     state: present
-  user1:
-    key: ../pub_keys/user1.pub
+  sysadmin2:
+    key: ../pub_keys/sysadmin2.pub
     state: present
 ```
 
@@ -84,7 +83,7 @@ TASKS:
 
 You can make a repository with submodules pointing your module repository. [Like in this example](https://github.com/danypr92/odoo-organization-custom-modules)
 
-Put custom modules repository url in your inventory/host_vars/your_host/config.yml file:
+Put custom modules repository url in your `inventory/host_vars/your_host/config.yml` file:
 
 ```YAML
 custom_modules_repo: https://github.com/danypr92/odoo-organization-custom-modules.git
@@ -97,10 +96,10 @@ TASKS:
 
 ## Roles
 
-### Odoo Config
+### Sysadmin
 
-- Creates Odoo configuration file
-- Restarts Odoo service
+- Creates default user `odoo`
+- Creates sysadmins with permissions
 
 ### Common
 
@@ -111,10 +110,19 @@ TASKS:
 - Installs Postgres and NodeJS
 - Adds service unit
 
-### Sysadmin
+### Odoo Config
 
-- Creates default user `odoo`
-- Creates sysadmins with permissions
+- Creates Odoo configuration file
+- Restarts Odoo service
+
+## Requirements
+
+You will need Ansible on your machine to run the playbooks.
+These playbooks will install the PostgreSQL database and Python virtualenv to manage python packages.
+
+It has currently been tested on **Ubuntu 16.04 Xenial (64 bit)**.
+
+If you like run the `lxc-create` script, you need install [LXC](https://linuxcontainers.org/).
 
 ## Development - Using LXC containers
 
@@ -170,13 +178,13 @@ USER --> Your sysadmin user name.
 
 `ansible-playbook playbooks/deploy.yml -u USER`
 
-USER --> Your user name (not need be superuser)
+USER --> Your user name (not need be sysadmin)
 
 ### Step 4 - Deploy custom modules
 
 `ansible-playbook playbooks/deploy_custom_modules.yml -u USER`
 
-USER --> Your user name (not need be superuser)
+USER --> Your user name (not need be sysadmin)
 
 ## System Administration
 
