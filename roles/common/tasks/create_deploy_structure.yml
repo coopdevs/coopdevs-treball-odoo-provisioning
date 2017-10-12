@@ -4,7 +4,7 @@
   file:
     path="{{ odoo_path }}"
     state=directory
-    group=odoo
+    group="{{ default_group }}"
     mode=2775
 
 - name: Create share directory
@@ -12,7 +12,7 @@
   file:
     path="{{ odoo_path }}/shared"
     state=directory
-    group=odoo
+    group="{{ default_group }}"
     mode=2775
 
 - name: Create custom modules directory
@@ -21,21 +21,21 @@
     path="{{ custom_modules_path }}"
     state=directory
     mode=2775
-    group=odoo
+    group="{{ default_group }}"
 
 - name: Create log dir "{{ log_path }}"
   become: yes
   file:
     path="{{ log_path }}"
     state=directory
-    group=odoo
+    group="{{ default_group }}"
     mode=2777
 
 - name: Create log file "{{ log_path }}"
   become: yes
   file:
     path="{{ log_path }}/odoo.log"
-    group=odoo
+    group="{{ default_group }}"
     state=touch
     mode=2777
 
@@ -45,4 +45,4 @@
     path="{{ venv_path }}"
     state=directory
     mode=2775
-    group=odoo
+    group="{{ default_group }}"

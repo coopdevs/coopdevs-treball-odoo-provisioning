@@ -4,8 +4,8 @@
     src="odoo.service.j2"
     dest="/etc/systemd/system/odoo.service"
     mode=2775
-    owner=odoo
-    group=odoo
+    owner="{{ default_group }}"
+    group="{{ default_group }}"
   become: yes
 
 - name: Enable service

@@ -1,7 +1,7 @@
 ---
 - name: create default_user
   user:
-    name=odoo
+    name="{{ default_user }}"
     append=yes
     state=present
     shell=/bin/bash
@@ -10,11 +10,11 @@
   become: yes
   template:
     src=odoo.sudoer.j2
-    dest=/etc/sudoers.d/1-odoo
+    dest="/etc/sudoers.d/1-{{ default_user }}"
     mode=0440
 
 - name: remove default_user SSH keys
   become: yes
   file:
-    path: /home/odoo/.ssh/authorized_keys
+    path: "/home/{{ default_user }}/.ssh/authorized_keys"
     state: absent

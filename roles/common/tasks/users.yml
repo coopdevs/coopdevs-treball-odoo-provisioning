@@ -6,7 +6,7 @@
   become: yes
   user:
     name="{{ item.key }}"
-    groups=odoo
+    groups="{{ default_group }}"
     append=yes
     state="{{ item.value.state }}"
     shell=/bin/bash

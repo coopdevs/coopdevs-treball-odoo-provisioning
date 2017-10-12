@@ -1,15 +1,15 @@
 ---
-- name: AdminUsers - Create user
+- name: SysAdmins - Create user
   become: yes
   user:
     name="{{ item.key }}"
-    groups=odoo
+    groups="{{ default_group }}"
     append=yes
     state="{{ item.value.state }}"
     shell=/bin/bash
   with_dict: "{{ sysadmins }}"
 
-- name: AdminUsers - copy ssh keys
+- name: SysAdmins - copy ssh keys
   become: yes
   authorized_key:
     user={{ item.key }}
@@ -18,7 +18,7 @@
   when: item.value.state == "present"
   with_dict: "{{ sysadmins }}"
 
-- name: AdminUsers - add custom sudoer file
+- name: SysAdmins - add custom sudoer file
   become: yes
   template:
     src=sysadmin.sudoer.j2

@@ -7,8 +7,8 @@ Description=Odoo server
 ExecStart={{ venv_path }}/bin/python {{ odoo_path }}/current/build/scripts-2.7/odoo -c {{ odoo_path }}/shared/odoo.conf
 
 # Execute service like user
-User=odoo
-Group=odoo
+User={{ default_group }}
+Group={{ default_group }}
 
 # Restart service after all crashes but wait 5 secontds between restarts.
 Restart=always
