@@ -1,18 +1,21 @@
 ---
-# Add your developers ans sysadmins ssh public key in pub_keys folder and add it to this list
-# user-name:                        | Your name
-#   key: ../pub_keys/example.pub | Key file path
-#   state: present                | present to add or absent (absent to remove authorized key)
+# Add your ssh public key in pub_keys folder and add it to this list
+# users:                                | sysadmins or users
+#    example:                           | Your name
+#     key: ../pub_keys/ssh_pub_key.pub  | Key file path
+#     state: present                    | present (add or maintain) or absent (remove)
 
 sysadmins:
-  odoo-admin:
-    key: # sysadmin SSH key
+  dani:
+    key: ../pub_keys/dani.pub
     state: present
 
-# Developers
 users:
-  odoo-user:
-    key: # developer SSH KEY
+  dani2:
+    key: ../pub_keys/dani.pub
+    state: present
+  dani3:
+    key: ../pub_keys/dani.pub
     state: present
 
 custom_modules_repo: https://github.com/danypr92/odoo-organization-custom-modules.git
