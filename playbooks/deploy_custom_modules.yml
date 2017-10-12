@@ -14,6 +14,5 @@
 
   roles:
     - role: carlosbuenosvinos.ansistrano-deploy
-      tags: ansistrano::custom-modules-deploy
 
     - role: odoo-config

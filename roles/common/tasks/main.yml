@@ -1,7 +1,7 @@
 ---
 - include: users.yml
-  tags: users
-  include: install_packages.yml
+
+- include: install_packages.yml
 
 - include: create_deploy_structure.yml
 
