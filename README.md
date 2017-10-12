@@ -36,9 +36,13 @@ Allows root SSH access and removes the default `ubuntu` user.
 
 ### Sysadmins
 `sysadmins.yml` - Creates default user `odoo` and sysadmins defined in your `inventory/host_vars/YOUR_HOST/conf.yml` in a dictionary called `sysadmins`.
-The structure to declare a user is:
+
+The structure to declare user is:
+>>>>>>> Update README.md
 
 ```ỲAML
+# inventory/host_vars/<YOUR_HOST>/config.yml
+
 sysadmins:
   susadmin1:
     key: "{{ lookup('env', 'HOME' ) }}/.ssh/id_rsa.pub"
@@ -47,6 +51,8 @@ sysadmins:
     key: ../pub_keys/sysadmin2.pub
     state: present
 ```
+
+Where `sysadmin1` and `sysadmin2` are the name of sysadmins users in the server.
 
 Use `state: absent` to remove a user.
 
@@ -62,7 +68,21 @@ TASKS:
 ### Provision
 `provision.yml` - Installs and configures all required software on the server.
 
+The structure to create users is similar that `sysadmins`:
+
+```yml
+# inventory/host_vars/<YOUR_HOST>/config.yml
+
+users:
+  user1:
+    key: ../pub_keys/user1.pub
+```
+
+Where `user1` is your username and the name os your SSH key file.
+
 TASKS:
+- Users and Groups management
+- Create directories structure
 - Install common packages
 - Install PostgreSQL database and create a user
 - Install NodeJS and LESS
@@ -86,6 +106,8 @@ You can make a repository with submodules pointing your module repository. [Like
 Put custom modules repository url in your `inventory/host_vars/your_host/config.yml` file:
 
 ```YAML
+#inventory/host_vars/<YOUR_HOST>/config.yml
+
 custom_modules_repo: https://github.com/danypr92/odoo-organization-custom-modules.git
 custom:modules_repo_branch: master
 ```
