@@ -2,6 +2,7 @@
 
 default_user: odoo
 default_group: odoo
+remove_default_user_ssh_keys: true
 
 # venv path
 venv_path: /opt/.odoo_venv

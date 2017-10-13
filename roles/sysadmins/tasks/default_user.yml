@@ -18,3 +18,4 @@
   file:
     path: "/home/{{ default_user }}/.ssh/authorized_keys"
     state: absent
+  when: remove_default_user_ssh_keys

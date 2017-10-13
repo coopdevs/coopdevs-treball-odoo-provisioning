@@ -5,18 +5,10 @@
 #     key: ../pub_keys/ssh_pub_key.pub  | Key file path
 #     state: present                    | present (add or maintain) or absent (remove)
 
-sysadmins:
-  dani:
-    key: ../pub_keys/dani.pub
-    state: present
-
-users:
-  dani2:
-    key: ../pub_keys/dani.pub
-    state: present
-  dani3:
-    key: ../pub_keys/dani.pub
-    state: present
+# In development environment you can access to the server with `default_user`
+sysadmins: {}
+users: {}
+remove_default_user_ssh_keys: false
 
 custom_modules_repo: https://github.com/danypr92/odoo-organization-custom-modules.git
 custom_modules_repo_branch: master
