@@ -1,11 +1,11 @@
 ---
 
 - name: Move release files
-  shell: "mv {{ ansistrano_release_path.stdout }}/odoo-{{ odoo_version }}-{{ odoo_release}}/* {{ ansistrano_release_path.stdout }}"
+  shell: "mv {{ ansistrano_release_path.stdout }}/odoo-{{ odoo_version }}-{{ odoo_release }}/* {{ ansistrano_release_path.stdout }}"
 
 - name: Remove extra folder
   file:
-    path: "{{ ansistrano_release_path.stdout }}/odoo-{{ odoo_version }}-{{ odoo_release}}"
+    path: "{{ ansistrano_release_path.stdout }}/odoo-{{ odoo_version }}-{{ odoo_release }}"
     state: absent
 
 - name: Install Python requitements
@@ -14,7 +14,7 @@
     virtualenv: "{{ venv_path }}"
 
 - name: Build Odoo exec
-  shell: "cd {{ansistrano_release_path.stdout }} && {{ venv_path }}/bin/python setup.py build"
+  shell: "cd {{ ansistrano_release_path.stdout }} && {{ venv_path }}/bin/python setup.py build"
 
 - name: Install Odoo dependencies
-  shell: "cd {{ansistrano_release_path.stdout }} && {{ venv_path }}/bin/python setup.py install"
+  shell: "cd {{ ansistrano_release_path.stdout }} && {{ venv_path }}/bin/python setup.py install"
