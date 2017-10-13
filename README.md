@@ -38,14 +38,13 @@ Allows root SSH access and removes the default `ubuntu` user.
 `sysadmins.yml` - Creates default user `odoo` and sysadmins defined in your `inventory/host_vars/YOUR_HOST/conf.yml` in a dictionary called `sysadmins`.
 
 The structure to declare user is:
->>>>>>> Update README.md
 
-```ỲAML
+```yml
 # inventory/host_vars/<YOUR_HOST>/config.yml
 
 sysadmins:
-  susadmin1:
-    key: "{{ lookup('env', 'HOME' ) }}/.ssh/id_rsa.pub"
+  sysadmin1:
+    key: "{{ lookup('env', 'HOME') }}/.ssh/id_rsa.pub"
     state: present
   sysadmin2:
     key: ../pub_keys/sysadmin2.pub
