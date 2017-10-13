@@ -75,6 +75,7 @@ The structure to create users is similar that `sysadmins`:
 users:
   user1:
     key: ../pub_keys/user1.pub
+    state: present
 ```
 
 Where `user1` is your username and the name os your SSH key file.
@@ -104,7 +105,7 @@ You can make a repository with submodules pointing your module repository. [Like
 
 Put custom modules repository url in your `inventory/host_vars/your_host/config.yml` file:
 
-```YAML
+```yml
 #inventory/host_vars/<YOUR_HOST>/config.yml
 
 custom_modules_repo: https://github.com/danypr92/odoo-organization-custom-modules.git
@@ -145,7 +146,13 @@ It has currently been tested on **Ubuntu 16.04 Xenial (64 bit)**.
 
 If you like run the `lxc-create` script, you need install [LXC](https://linuxcontainers.org/).
 
-## Development - Using LXC containers
+## Development
+
+In the development environment (`local.odoo.net`) you must use the sysadmin user `odoo`.
+
+`ssh odoo@local.odoo.net`
+
+### Using LXC containers
 
 You can need a local container to test your customizations.
 `lxc/lxc-create.sh` script creates a container, gets IP address of the new container and creates a known host whit this IP address.
@@ -155,10 +162,10 @@ You can need a local container to test your customizations.
 Arguments:
 
 ```
-  -n --name: LXC container name. Ex.: my-cont"
-  -t --template: LXC container template. Ex.: ubuntu"
-  -r --release: LXC container release. Ex.: xenial"
-  -h --host: LXC container host name. Ex.: local.lxc.org"
+  -n --name: LXC container name. Ex.: my-cont
+  -t --template: LXC container template. Ex.: ubuntu
+  -r --release: LXC container release. Ex.: xenial
+  -h --host: LXC container host name. Ex.: local.lxc.org
 ```
 
 **Name and host are required.** Default template is Ubuntu and default release is Xenial (16.04 LTS)

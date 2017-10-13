@@ -1,15 +1,10 @@
 #!/bin/bash
 
 # Create `odoo` user and copy the ssh key
-useradd "odoo"
-mkdir -p /home/odoo/.ssh/ && touch /home/odoo/.ssh/authorized_keys
-echo "$1" > /home/odoo/.ssh/authorized_keys
-chown -R odoo:odoo /home/odoo
-
-touch /etc/sudoers.d/1-odoo
+useradd --create-home --shell /bin/bash odoo
+su odoo -c "mkdir ~/.ssh/ && echo '$1' > /home/odoo/.ssh/authorized_keys"
 echo "odoo ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/1-odoo
 
+# Close root SSH access and restart the service
 sed -i 's/PermitRootLogin yes/PermitRootLogin no/' /etc/ssh/sshd_config
-
-# Need reboot to fix sshd_config changes.
-# reboot ??
+systemctl restart ssh

@@ -6,5 +6,5 @@
 echo "SSH key path: ${ssh_path}"
 # Read SSH key and save it in var
 read ssh_key < "$ssh_path"
-ssh root@local.odoo.net "bash -s" < ./script/create_user.sh "\"${ssh_key}\""
+ssh root@"$1" "bash -s" < ./script/create_user.sh "\"${ssh_key}\""
 echo "Created user 'odoo' and copy the SSH key"
