@@ -1,27 +1,19 @@
 ---
-- name: deploy 
+- name: deploy
   hosts: odoo_servers
-  remote_user: "{{ user }}"
 
   vars:
     odoo_version: 10.0
     odoo_release: 20170914
-    ansistrano_deploy_to: "{{ ansible_env.HOME }}/apps/odoo"
+    ansistrano_deploy_to: "{{ odoo_path }}"
     ansistrano_keep_releases: 3
     ansistrano_deploy_via: download_unarchive
-    ansistrano_get_url: "https://nightly.odoo.com/10.0/nightly/src/odoo_{{ odoo_version }}.{{ odoo_release }}.tar.gz" 
+    ansistrano_get_url: "https://nightly.odoo.com/{{ odoo_version }}/nightly/src/odoo_{{ odoo_version }}.{{ odoo_release }}.tar.gz"
     ansistrano_ensure_shared_path_exist: yes
     ansistrano_ensure_basedirs_shared_files_exist: yes
     ansistrano_before_symlink_tasks_file: "{{ playbook_dir }}/../deploy_hooks/before-symlink-tasks.yml"
 
   roles:
-      - role: virtualenv
-        tags: python::virtualenv
+    - role: carlosbuenosvinos.ansistrano-deploy
 
-      - role: carlosbuenosvinos.ansistrano-deploy
-        tags: ansistrano::deploy
-      
-      - role: addservice
-        vars:
-          status: create
-        tags: addservice
+    - role: odoo-config

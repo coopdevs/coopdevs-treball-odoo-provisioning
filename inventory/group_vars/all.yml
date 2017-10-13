@@ -1,12 +1,19 @@
 ---
 
-# User name and password for running ansible on host
-user: odoo
+default_user: odoo
+default_group: odoo
+remove_default_user_ssh_keys: true
 
+# venv path
+venv_path: /opt/.odoo_venv
+
+# Deploy path
+odoo_path: /opt/odoo
+custom_modules_path: /opt/custom_modules
 
 # Use correct python2.7 interpeter
 ansible_python_interpreter: "/usr/bin/python2.7"
 
 postgresql_users:
-  - name: "{{ user }}"
+  - name: "{{ default_user }}"
     role_attr_flags: CREATEDB

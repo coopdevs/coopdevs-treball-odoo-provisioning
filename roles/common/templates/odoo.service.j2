@@ -4,11 +4,11 @@
 Description=Odoo server
 
 [Service]
-ExecStart={{ ansible_env.HOME }}/odoo-venv/bin/python {{ ansistrano_release_path.stdout }}/build/scripts-2.7/odoo -c /etc/odoo.conf
+ExecStart={{ venv_path }}/bin/python {{ odoo_path }}/current/build/scripts-2.7/odoo -c {{ odoo_path }}/shared/odoo.conf
 
 # Execute service like user
-User={{ user }}
-Group={{ user }}
+User={{ default_user }}
+Group={{ default_group }}
 
 # Restart service after all crashes but wait 5 secontds between restarts.
 Restart=always
