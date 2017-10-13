@@ -5,6 +5,5 @@
   register: env
 
 - name: Manually create the initial virtualenv
-  become: yes
   command: "virtualenv {{ venv_path }}"
   when: env.stat.isdir is undefined

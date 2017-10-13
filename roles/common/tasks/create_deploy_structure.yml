@@ -1,6 +1,5 @@
 ---
 - name: Create Odoo directory
-  become: yes
   file:
     path="{{ odoo_path }}"
     state=directory
@@ -8,7 +7,6 @@
     mode=2775
 
 - name: Create share directory
-  become: yes
   file:
     path="{{ odoo_path }}/shared"
     state=directory
@@ -16,7 +14,6 @@
     mode=2775
 
 - name: Create custom modules directory
-  become: yes
   file:
     path="{{ custom_modules_path }}"
     state=directory
@@ -24,7 +21,6 @@
     group="{{ default_group }}"
 
 - name: Create log dir "{{ log_path }}"
-  become: yes
   file:
     path="{{ log_path }}"
     state=directory
@@ -32,7 +28,6 @@
     mode=2777
 
 - name: Create log file "{{ log_path }}"
-  become: yes
   file:
     path="{{ log_path }}/odoo.log"
     group="{{ default_group }}"
@@ -40,7 +35,6 @@
     mode=2777
 
 - name: Create virtualenv directory
-  become: yes
   file:
     path="{{ venv_path }}"
     state=directory

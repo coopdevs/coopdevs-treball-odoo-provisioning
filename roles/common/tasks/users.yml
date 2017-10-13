@@ -3,7 +3,6 @@
 # Setup a default user - Work user.
 
 - name: create users
-  become: yes
   user:
     name="{{ item.key }}"
     groups="{{ default_group }}"
@@ -13,7 +12,6 @@
   with_dict: "{{ users }}"
 
 - name: ssh keys
-  become: yes
   authorized_key:
     user={{ item.key }}
     key="{{ lookup('file', item.value.key) }}"

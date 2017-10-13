@@ -1,6 +1,5 @@
 ---
 - name: SysAdmins - Create user
-  become: yes
   user:
     name="{{ item.key }}"
     groups="{{ default_group }}"
@@ -10,7 +9,6 @@
   with_dict: "{{ sysadmins }}"
 
 - name: SysAdmins - copy ssh keys
-  become: yes
   authorized_key:
     user={{ item.key }}
     key="{{ lookup('file', item.value.key) }}"
@@ -19,7 +17,6 @@
   with_dict: "{{ sysadmins }}"
 
 - name: SysAdmins - add custom sudoer file
-  become: yes
   template:
     src=sysadmin.sudoer.j2
     dest="/etc/sudoers.d/90-{{ item.key }}"

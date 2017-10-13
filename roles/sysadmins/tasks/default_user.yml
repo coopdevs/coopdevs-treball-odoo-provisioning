@@ -7,14 +7,12 @@
     shell=/bin/bash
 
 - name: add default_user  sudoer file
-  become: yes
   template:
     src=odoo.sudoer.j2
     dest="/etc/sudoers.d/1-{{ default_user }}"
     mode=0440
 
 - name: remove default_user SSH keys
-  become: yes
   file:
     path: "/home/{{ default_user }}/.ssh/authorized_keys"
     state: absent

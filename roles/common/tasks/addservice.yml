@@ -6,10 +6,8 @@
     mode=2775
     owner="{{ default_group }}"
     group="{{ default_group }}"
-  become: yes
 
 - name: Enable service
-  become: yes
   systemd:
     name: odoo.service
     enabled: yes
