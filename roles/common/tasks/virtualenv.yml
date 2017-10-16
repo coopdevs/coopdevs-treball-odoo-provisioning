@@ -7,3 +7,11 @@
 - name: Manually create the initial virtualenv
   command: "virtualenv {{ venv_path }}"
   when: env.stat.isdir is undefined
+
+- name: Change venv permissions
+  file:
+    path="{{ venv_path }}"
+    owner=odoo
+    group=odoo
+    mode=2775
+    recurse=yes
