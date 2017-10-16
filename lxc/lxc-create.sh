@@ -127,5 +127,8 @@ sudo lxc-attach -n "$NAME" -- userdel ubuntu
 sudo lxc-stop -n "$NAME"
 sudo lxc-start -n "$NAME"
 # Copy ssh key
-echo -e "*******\n\n\nroot password: root\n\n\n*******"
-ssh-copy-id root@"$HOST"
+[[ -z "${SSH_PATH}" ]] && ssh_path=~/.ssh/id_rsa.pub || ssh_path="${SSH_PATH}"
+read ssh_key < "${ssh_path}"
+sudo lxc-attach -n "$NAME" -- bash -c "mkdir /root/.ssh/ && echo '$ssh_key' > /root/.ssh/authorized_keys"
+
+echo -e "\n\nNow you can access runing:\n\n\t'ssh root@$HOST'\n"
