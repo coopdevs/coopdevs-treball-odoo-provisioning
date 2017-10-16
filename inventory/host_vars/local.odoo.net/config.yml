@@ -12,4 +12,7 @@ remove_default_user_ssh_keys: false
 
 custom_modules_repo: https://github.com/danypr92/odoo-organization-custom-modules.git
 custom_modules_repo_branch: master
+
 log_path: /var/log/odoo
+# Log levels: critical, error, warn, debug
+log_level: debug
