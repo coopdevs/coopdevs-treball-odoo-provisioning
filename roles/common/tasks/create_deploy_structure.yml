@@ -15,7 +15,7 @@
 
 - name: Create custom modules directory
   file:
-    path="{{ custom_modules_path }}"
+    path="{{ custom_modules_path }}/current"
     state=directory
     mode=2775
     group="{{ default_group }}"
