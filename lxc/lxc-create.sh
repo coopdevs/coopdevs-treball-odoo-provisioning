@@ -62,7 +62,7 @@ then
 fi
 
 echo "Creating config file"
-network_link="$(brctl show | awk '{if ($1 != "bridge")  print $1 }')"
+network_link="lxcbr0"
 cat >/tmp/lxc.conf <<EOL
   # Network configuration
   lxc.network.type = veth
