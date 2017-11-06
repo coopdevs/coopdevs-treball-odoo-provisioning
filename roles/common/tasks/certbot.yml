@@ -1,0 +1,11 @@
+---
+
+- name: certbot
+  vars:
+    certbot_auto_renew_user: "{{ default_user }}"
+  include_role:
+    name: geerlingguy.certbot
+
+- name: Create certificates using certbot
+  command: "certbot certonly --standalone --agree-tos --email {{ developer_email }} --noninteractive -d {{ inventory_hostname }}"
+
