@@ -26,31 +26,30 @@ nginx_configs:
 nginx_sites:
   odoo:
     - |
-      listen 80
-      server_name {{ inventory_host }}
-      rewrite ^(.*)$ https://$host$1 permanent
+      listen 80;
+      server_name {{ inventory_hostname }};
+      rewrite ^(.*)$ https://$host$1 permanent;
   odoo.ssl:
     - |
-      listen 443 ssl
-      ssl_certificate /etc/letsencrypt/live/{{ inventory_host }}/fullchain.pem
-      ssl_certificate_key /etc/letsencrypt/live/{{ inventory_host }}/privkey.pem
-      include /etc/letsencrypt/options-ssl-nginx.conf
-      ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem
-      server_name {{ inventory_host }}
-      proxy_read_timeout 720s
-      proxy_connect_timeout 720s
-      proxy_send_timeout 720s
-      proxy_set_header X-Forwarded-Host $host
-      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for
-      proxy_set_header X-Forwarded-Proto $scheme
-      proxy_set_header X-Real-IP $remote_addr
-      ssl on
-      access_log /var/log/nginx/odoo.access.log
-      error_log /var/log/nginx/odoo.error.log
+      listen 443 ssl;
+      ssl_certificate /etc/letsencrypt/live/{{ inventory_hostname }}/fullchain.pem;
+      ssl_certificate_key /etc/letsencrypt/live/{{ inventory_hostname }}/privkey.pem;
+      include /etc/letsencrypt/options-ssl-nginx.conf;
+      ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
+      server_name {{ inventory_hostname }};
+      proxy_read_timeout 720s;
+      proxy_connect_timeout 720s;
+      proxy_send_timeout 720s;
+      proxy_set_header X-Forwarded-Host $host;
+      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+      proxy_set_header X-Forwarded-Proto $scheme;
+      proxy_set_header X-Real-IP $remote_addr;
+      ssl on;
+      access_log /var/log/nginx/odoo.access.log;
+      error_log /var/log/nginx/odoo.error.log;
       location / {
         proxy_redirect off;
         proxy_pass http://odoo;
       }
-      gzip_types text/css text/less text/plain text/xml application/xml application/json application/javascript
-      gzip on
-
+      gzip_types text/css text/less text/plain text/xml application/xml application/json application/javascript;
+      gzip on;
