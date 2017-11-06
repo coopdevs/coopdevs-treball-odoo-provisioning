@@ -18,3 +18,7 @@
     name: geerlingguy.postgresql
 
 - include: addservice.yml
+
+- name: nginx
+  include_role:
+    name: jdauphant.nginx
