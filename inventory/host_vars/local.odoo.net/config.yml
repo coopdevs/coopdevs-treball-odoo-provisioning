@@ -16,3 +16,5 @@ custom_modules_repo_branch: master
 log_path: /var/log/odoo
 # Log levels: critical, error, warn, debug
 log_level: debug
+
+developer_email:
