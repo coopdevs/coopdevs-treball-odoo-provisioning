@@ -10,8 +10,8 @@
 
 - name: Change venv permissions
   file:
-    path="{{ venv_path }}"
-    owner=odoo
-    group=odoo
-    mode=2775
-    recurse=yes
+    path: "{{ venv_path }}"
+    owner: odoo
+    group: odoo
+    mode: 02775
+    recurse: yes

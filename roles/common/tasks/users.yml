@@ -4,17 +4,17 @@
 
 - name: create users
   user:
-    name="{{ item.key }}"
-    groups="{{ default_group }}"
-    append=yes
-    state="{{ item.value.state }}"
-    shell=/bin/bash
+    name: "{{ item.key }}"
+    groups: "{{ default_group }}"
+    append: yes
+    state: "{{ item.value.state }}"
+    shell: /bin/bash
   with_dict: "{{ users }}"
 
 - name: ssh keys
   authorized_key:
-    user={{ item.key }}
-    key="{{ lookup('file', item.value.key) }}"
-    state={{ item.value.state }}
+    user: "{{ item.key }}"
+    key: "{{ lookup('file', item.value.key) }}"
+    state: "{{ item.value.state }}"
   when: item.value.state == "present"
   with_dict: "{{ users }}"

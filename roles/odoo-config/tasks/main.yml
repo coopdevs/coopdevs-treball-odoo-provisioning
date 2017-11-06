@@ -1,10 +1,10 @@
 ---
 - name: Add Odoo config
   template:
-    src=odoo.conf.j2
-    dest="{{ odoo_path }}/shared/odoo.conf"
-    mode=0774
-    group="{{ default_group }}"
+    src: odoo.conf.j2
+    dest: "{{ odoo_path }}/shared/odoo.conf"
+    mode: 0774
+    group: "{{ default_group }}"
 
 
 - name: Restart service (command)

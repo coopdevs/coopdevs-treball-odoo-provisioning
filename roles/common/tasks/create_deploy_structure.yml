@@ -1,42 +1,42 @@
 ---
 - name: Create Odoo directory
   file:
-    path="{{ odoo_path }}"
-    state=directory
-    group="{{ default_group }}"
-    mode=2775
+    path: "{{ odoo_path }}"
+    state: directory
+    group: "{{ default_group }}"
+    mode: 02775
 
 - name: Create share directory
   file:
-    path="{{ odoo_path }}/shared"
-    state=directory
-    group="{{ default_group }}"
-    mode=2775
+    path: "{{ odoo_path }}/shared"
+    state: directory
+    group: "{{ default_group }}"
+    mode: 02775
 
 - name: Create custom modules directory
   file:
-    path="{{ custom_modules_path }}/current"
-    state=directory
-    mode=2775
-    group="{{ default_group }}"
+    path: "{{ custom_modules_path }}/current"
+    state: directory
+    mode: 02775
+    group: "{{ default_group }}"
 
 - name: Create log dir "{{ log_path }}"
   file:
-    path="{{ log_path }}"
-    state=directory
-    group="{{ default_group }}"
-    mode=2777
+    path: "{{ log_path }}"
+    state: directory
+    group: "{{ default_group }}"
+    mode: 02777
 
 - name: Create log file "{{ log_path }}"
   file:
-    path="{{ log_path }}/odoo.log"
-    group="{{ default_group }}"
-    state=touch
-    mode=2777
+    path: "{{ log_path }}/odoo.log"
+    group: "{{ default_group }}"
+    state: touch
+    mode: 02777
 
 - name: Create virtualenv directory
   file:
-    path="{{ venv_path }}"
-    state=directory
-    mode=2775
-    group="{{ default_group }}"
+    path: "{{ venv_path }}"
+    state: directory
+    mode: 02775
+    group: "{{ default_group }}"

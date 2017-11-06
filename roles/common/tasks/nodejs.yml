@@ -1,8 +1,8 @@
 ---
 - name: Install nodejs packages
   apt:
-    pkg={{ item }}
-    state=present
+    pkg: "{{ item }}"
+    state: present
   with_items:
     - nodejs
     - npm

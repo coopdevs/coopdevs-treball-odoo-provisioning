@@ -1,16 +1,16 @@
 ---
 - name: create default_user
   user:
-    name="{{ default_user }}"
-    append=yes
-    state=present
-    shell=/bin/bash
+    name: "{{ default_user }}"
+    append: yes
+    state: present
+    shell: /bin/bash
 
 - name: add default_user  sudoer file
   template:
-    src=odoo.sudoer.j2
-    dest="/etc/sudoers.d/1-{{ default_user }}"
-    mode=0440
+    src: odoo.sudoer.j2
+    dest: "/etc/sudoers.d/1-{{ default_user }}"
+    mode: 0440
 
 - name: remove default_user SSH keys
   file:
