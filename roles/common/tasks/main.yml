@@ -19,6 +19,8 @@
 
 - include: addservice.yml
 
+- include: certbot.yml
+
 - name: nginx
   include_role:
     name: jdauphant.nginx

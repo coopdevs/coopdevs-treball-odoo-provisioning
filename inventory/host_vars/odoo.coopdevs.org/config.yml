@@ -1,0 +1,34 @@
+---
+# Add your ssh public key in pub_keys folder and add it to this list
+# users:                                | sysadmins or users
+#    example:                           | Your name
+#     key: ../pub_keys/ssh_pub_key.pub  | Key file path
+#     state: present                    | present (add or maintain) or absent (remove)
+
+# In development environment you can access to the server with `default_user`
+sysadmins:
+  dani_sys:
+    key: "~/.ssh/id_rsa.pub"
+    state: absent
+  danipalomar:
+    key: "~/.ssh/id_rsa.pub"
+    state: present
+  daniquilez:
+    key: "../pub_keys/daniquilez.pub"
+    state: present
+
+users:
+  dani_dev:
+    key: "~/.ssh/id_rsa.pub"
+    state: absent
+
+remove_default_user_ssh_keys: false
+
+#custom_modules_repo: https://github.com/danypr92/odoo-organization-custom-modules.git
+custom_modules_repo_branch: master
+
+log_path: /var/log/odoo
+# Log levels: critical, error, warn, debug
+log_level: debug
+
+developer_email: info@coopdevs.org
