@@ -1,8 +1,9 @@
 ---
 - name: install common packages
   apt:
-    pkg={{ item }}
-    state=present
+    update_cache: yes
+    pkg: "{{ item }}"
+    state: present
   with_items:
     - python-dev
     - virtualenv
