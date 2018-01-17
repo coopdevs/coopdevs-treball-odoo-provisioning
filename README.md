@@ -5,7 +5,7 @@ These are [Ansible](http://docs.ansible.com/ansible/) playbooks (scripts) for ma
 ## Requirements
 
 You will need Ansible on your machine to run the playbooks.
-These playbooks will install the PostgreSQL database, NodeJS and Python virtualenv to manage python packages. 
+These playbooks will install the PostgreSQL database, NodeJS and Python virtualenv to manage python packages.
 
 It has currently been tested on **Ubuntu 16.04 Xenial (64 bit)**.
 
@@ -15,7 +15,7 @@ If you like run the `lxc-create` script, you need install [LXC](https://linuxcon
 ## Bash scripts
 
 ### Default User
-`scripts/default_user.yml`
+`script/default_user.yml`
 
 Reads local SSH key and passes it to `create_user.sh` executed in the host with SSH root connection.
 You can define an env var `SSH_PATH` if your SSH key is stored in another path other than the default `~/.ssh/id_rsa.pub`
@@ -131,7 +131,7 @@ TASKS:
 - Creates virtualenv
 - Installs Postgres and NodeJS
 - Adds service unit
-
+    
 ### Odoo Config
 
 - Creates Odoo configuration file
