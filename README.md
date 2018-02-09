@@ -11,6 +11,10 @@ It has currently been tested on **Ubuntu 16.04 Xenial (64 bit)**.
 
 If you like run the `lxc-create` script, you need install [LXC](https://linuxcontainers.org/).
 
+Install dependencies running:
+```
+ansible-galaxy install -r requirements.yml
+```
 
 ## Bash scripts
 
