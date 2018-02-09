@@ -1,9 +1,9 @@
 [staging]
 odoo.coopdevs.org
 
-[lxc]
-local.odoo.net
+[dev]
+local.odoo.coop
 
 [odoo_servers:children]
-lxc
+dev
 staging
