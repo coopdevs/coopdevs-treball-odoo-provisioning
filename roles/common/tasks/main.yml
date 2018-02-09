@@ -3,6 +3,8 @@
   include_role:
     name: geerlingguy.security
 
+- include: groups.yml
+
 - include: users.yml
 
 - include: install_packages.yml
