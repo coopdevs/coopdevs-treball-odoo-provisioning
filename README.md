@@ -244,3 +244,9 @@ sudo systemctl restart odoo.service
 ```
 
 **They can execute `deploy.yml` and `deploy_custom_modules.yml` playbooks.**
+
+## DB Admin Password
+
+Add password to the `super admin` that manage the dbs.
+In `inventory/host_vars/host_name/secrets.yml` add the key `admin_passwd` to protect the creation and management of dbs.
+`secrets.yml` is a encrypted vault. Run `ansible-vault edit secrets.yml` to change this password.
