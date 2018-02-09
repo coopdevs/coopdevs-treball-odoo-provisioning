@@ -1,5 +1,0 @@
----
-# Setup a default user - Work user.
-- include: default_user.yml
-- include: sysadmins.yml
-

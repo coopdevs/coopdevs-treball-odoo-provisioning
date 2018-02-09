@@ -6,8 +6,18 @@
 #     state: present                    | present (add or maintain) or absent (remove)
 
 # In development environment you can access to the server with `default_user`
-sysadmins: {}
-users: {}
+development_user: "{{ lookup('env', 'USER') }}"
+
+sys_admins:
+  - name: odoo
+    ssh_key: "~/.ssh/id_rsa.pub"
+    state: present
+  - name: "{{ development_user }}"
+    ssh_key: "~/.ssh/id_rsa.pub"
+    state: present
+
+developers: []
+
 remove_default_user_ssh_keys: false
 
 custom_modules_repo: https://github.com/danypr92/odoo-organization-custom-modules.git
