@@ -2,8 +2,8 @@
 - name: Create `odoo` user
   user:
     name: odoo
-    groups: odoo
-    group: odoo
+    groups: "{{ default_group }}"
+    group: "{{ default_group }}"
     append: yes
     state: present
     shell: /bin/bash
