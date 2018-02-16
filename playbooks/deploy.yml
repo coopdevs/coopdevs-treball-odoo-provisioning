@@ -14,11 +14,9 @@
     ansistrano_before_symlink_tasks_file: "{{ playbook_dir }}/../deploy_hooks/before-symlink-tasks.yml"
 
   become: true
-  become_user: odoo
+  become_user: "{{ default_user }}"
   roles:
     - role: carlosbuenosvinos.ansistrano-deploy
-      become: true
-      become_user: odoo
 
     - role: odoo-config
       tags: config
