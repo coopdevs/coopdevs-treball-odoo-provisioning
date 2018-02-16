@@ -6,7 +6,7 @@ set -e
 # set -x
 
 # Load configuration
-shellcheck source=/dev/null
+# shellcheck source=/dev/null
 source "$PWD/scripts/config/lxc.cfg"
 
 RETRIES=5
