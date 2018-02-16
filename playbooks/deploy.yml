@@ -19,4 +19,3 @@
     - role: carlosbuenosvinos.ansistrano-deploy
 
     - role: odoo-config
-      tags: config
