@@ -1,4 +1,4 @@
 ---
 - group:
-    name: odoo
+    name: "{{ default_group }}"
     state: present
