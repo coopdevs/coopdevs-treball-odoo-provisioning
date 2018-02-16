@@ -9,7 +9,6 @@ These playbooks will install the PostgreSQL database, NodeJS and Python virtuale
 
 It has currently been tested on **Ubuntu 16.04 Xenial (64 bit)**.
 
-If you like run the `lxc-create` script, you need install [LXC](https://linuxcontainers.org/).
 
 Install dependencies running:
 ```
@@ -29,12 +28,6 @@ You can define an env var `SSH_PATH` if your SSH key is stored in another path o
 
 Creates the default_user `odoo` and copies the SSH key (first argument) in authorized keys of the user.
 Changes the SSH root login permissions.
-
-### lxc-create
-`lxc/lxc-create.sh`
-
-Creates a LXC container with host name and python 2.7 installed.
-Allows root SSH access and removes the default `ubuntu` user.
 
 ## Playbooks
 
@@ -141,39 +134,6 @@ TASKS:
 - Creates Odoo configuration file
 - Restarts Odoo service
 
-## Requirements
-
-You will need Ansible on your machine to run the playbooks.
-These playbooks will install the PostgreSQL database and Python virtualenv to manage python packages.
-
-It has currently been tested on **Ubuntu 16.04 Xenial (64 bit)**.
-
-If you like run the `lxc-create` script, you need install [LXC](https://linuxcontainers.org/).
-
-## Development
-
-In the development environment (`local.odoo.net`) you must use the sysadmin user `odoo`.
-
-`ssh odoo@local.odoo.net`
-
-### Using LXC containers
-
-You can need a local container to test your customizations.
-`lxc/lxc-create.sh` script creates a container, gets IP address of the new container and creates a known host whit this IP address.
-
-`./lxc/lxc-create.sh -n NAME -t TEMPLATE -r RELEASE -h HOST`
-
-Arguments:
-
-```
-  -n --name: LXC container name. Ex.: my-cont
-  -t --template: LXC container template. Ex.: ubuntu
-  -r --release: LXC container release. Ex.: xenial
-  -h --host: LXC container host name. Ex.: local.lxc.org
-```
-
-**Name and host are required.** Default template is Ubuntu and default release is Xenial (16.04 LTS)
-
 # Installation instructions
 
 For the first playbook (sysadmin.yml) is needed have a `odoo` user with your SSH pub key.
@@ -250,3 +210,30 @@ sudo systemctl restart odoo.service
 Add password to the `super admin` that manage the dbs.
 In `inventory/host_vars/host_name/secrets.yml` add the key `admin_passwd` to protect the creation and management of dbs.
 `secrets.yml` is a encrypted vault. Run `ansible-vault edit secrets.yml` to change this password.
+
+# Development
+
+In the development environment (`local.odoo.net`) you must use the sysadmin user `odoo`.
+
+`ssh odoo@local.odoo.net`
+
+## Using LXC Containers
+
+In order to run the `scripts/create-contqainer.sh` script, you need install [LXC](https://linuxcontainers.org/).
+
+The script in `scripts/create-container.sh` will help you to create a development environment using LXC containers.
+
+The script will:
+
+* Create container
+* Mount your project directory into container in `/opt/<project_name>`
+* Add container IP to `/etc/hosts`
+* Create `odoo` group with same `gid` of project directory
+* Create `odoo` user with same `uid` and `gid` of project directory
+* Add system user's SSH public key to `odoo` user
+* Install python2.7 in container
+* Run `sys_admins.yml` playbook
+
+When the execution ends, you have a container ready to provision and deploy the app.
+
+__You can find the configuration variables in `scripts/confg/lxc.cfg`.__
