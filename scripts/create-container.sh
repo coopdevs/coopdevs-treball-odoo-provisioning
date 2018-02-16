@@ -121,9 +121,9 @@ echo "Installing Python2.7 in container $NAME"
 sudo lxc-attach -n "$NAME" -- sudo apt update
 sudo lxc-attach -n "$NAME" -- sudo apt install -y python2.7
 
-# System administrators
+# Run `sysadmins` playbook
 echo "Adding user $USER as system administrator to $HOST"
-ansible-playbook playbooks/sys_admins.yml --limit dev -u root
+ansible-playbook playbooks/sysadmins.yml --limit dev -u odoo --ask-vault
 
 # Ready to provision the container
 echo "Very well! LXC container $NAME has been created and configured"
