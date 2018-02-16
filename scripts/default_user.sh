@@ -11,5 +11,5 @@ host=$1
 echo "SSH key path: ${ssh_path}"
 # Read SSH key and save it in var
 read ssh_key < "$ssh_path"
-ssh root@"$host" "bash -s" < ./script/create_user.sh "\"${ssh_key}\""
+ssh root@"$host" "bash -s" < ./scripts/create_user.sh "\"${ssh_key}\""
 echo "Created user 'odoo' and copy the SSH key"
