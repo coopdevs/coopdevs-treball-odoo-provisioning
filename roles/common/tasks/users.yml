@@ -1,33 +1,33 @@
 ---
-- name: Create `odoo` user
+- name: Create `"{{ default_user }}"` user
   user:
-    name: odoo
+    name: "{{ default_user }}"
     groups: "{{ default_group }}"
     group: "{{ default_group }}"
     append: yes
     state: present
     shell: /bin/bash
 
-- name: Create sudoers for `odoo` user
+- name: Create sudoers for `"{{ default_user }}"` user
   template:
-    dest: /etc/sudoers.d/odoo
+    dest: /etc/sudoers.d/"{{ default_user }}"
     mode: 0440
     owner: root
     group: root
     src: sudoers.odoo
     validate: "/usr/sbin/visudo -cf %s"
 
-- name: Add system administrator SSH public keys to `odoo` user
+- name: Add system administrator SSH public keys to `"{{ default_user }}"` user
   authorized_key:
-    user: odoo
+    user: "{{ default_user }}"
     key: "{{ lookup('file', item.ssh_key) }}"
     state: "{{ item.state }}"
   when: item.state == "present"
   with_items: "{{ sys_admins }}"
 
-- name: Add developers SSH public keys to `odoo` user
+- name: Add developers SSH public keys to `"{{ default_user }}"` user
   authorized_key:
-    user: odoo
+    user: "{{ default_user }}"
     key: "{{ lookup('file', item.ssh_key) }}"
     state: "{{ item.state }}"
   when: item.state == "present"
