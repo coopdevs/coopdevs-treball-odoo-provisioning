@@ -1,7 +1,0 @@
----
-# Add all users defined in host var.
-- name: Manage default user and sysadmins
-  hosts: odoo_servers
-  become: yes
-  roles:
-    - role: sysadmins

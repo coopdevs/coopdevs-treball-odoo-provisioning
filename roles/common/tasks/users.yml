@@ -1,20 +1,34 @@
 ---
-
-# Setup a default user - Work user.
-
-- name: create users
+- name: Create `"{{ default_user }}"` user
   user:
-    name: "{{ item.key }}"
+    name: "{{ default_user }}"
     groups: "{{ default_group }}"
+    group: "{{ default_group }}"
     append: yes
-    state: "{{ item.value.state }}"
+    state: present
     shell: /bin/bash
-  with_dict: "{{ users }}"
 
-- name: ssh keys
+- name: Create sudoers for `"{{ default_user }}"` user
+  template:
+    dest: /etc/sudoers.d/"{{ default_user }}"
+    mode: 0440
+    owner: root
+    group: root
+    src: sudoers.odoo
+    validate: "/usr/sbin/visudo -cf %s"
+
+- name: Add system administrator SSH public keys to `"{{ default_user }}"` user
   authorized_key:
-    user: "{{ item.key }}"
-    key: "{{ lookup('file', item.value.key) }}"
-    state: "{{ item.value.state }}"
-  when: item.value.state == "present"
-  with_dict: "{{ users }}"
+    user: "{{ default_user }}"
+    key: "{{ lookup('file', item.ssh_key) }}"
+    state: "{{ item.state }}"
+  when: item.state == "present"
+  with_items: "{{ sys_admins }}"
+
+- name: Add developers SSH public keys to `"{{ default_user }}"` user
+  authorized_key:
+    user: "{{ default_user }}"
+    key: "{{ lookup('file', item.ssh_key) }}"
+    state: "{{ item.state }}"
+  when: item.state == "present"
+  with_items: "{{ developers }}"

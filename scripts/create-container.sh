@@ -6,7 +6,7 @@ set -e
 # set -x
 
 # Load configuration
-shellcheck source=/dev/null
+# shellcheck source=/dev/null
 source "$PWD/scripts/config/lxc.cfg"
 
 RETRIES=5
@@ -123,7 +123,7 @@ sudo lxc-attach -n "$NAME" -- sudo apt install -y python2.7
 
 # Run `sysadmins` playbook
 echo "Adding user $USER as system administrator to $HOST"
-ansible-playbook playbooks/sysadmins.yml --limit dev -u odoo --ask-vault
+ansible-playbook playbooks/sys_admins.yml --limit dev -u root --ask-vault
 
 # Ready to provision the container
 echo "Very well! LXC container $NAME has been created and configured"

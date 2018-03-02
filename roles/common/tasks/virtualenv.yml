@@ -12,6 +12,6 @@
   file:
     path: "{{ venv_path }}"
     owner: odoo
-    group: odoo
+    group: "{{ default_group }}"
     mode: 02775
     recurse: yes

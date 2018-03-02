@@ -15,70 +15,50 @@ Install dependencies running:
 ansible-galaxy install -r requirements.yml
 ```
 
-## Bash scripts
-
-### Default User
-`script/default_user.yml`
-
-Reads local SSH key and passes it to `create_user.sh` executed in the host with SSH root connection.
-You can define an env var `SSH_PATH` if your SSH key is stored in another path other than the default `~/.ssh/id_rsa.pub`
-
-### Create User
-`script/create_user.yml`
-
-Creates the default_user `odoo` and copies the SSH key (first argument) in authorized keys of the user.
-Changes the SSH root login permissions.
-
 ## Playbooks
 
-### Sysadmins
-`sysadmins.yml` - Creates default user `odoo` and sysadmins defined in your `inventory/host_vars/YOUR_HOST/conf.yml` in a dictionary called `sysadmins`.
+### sys_admins.yml
 
-The structure to declare user is:
+This playbook will prepare the host to allow access to all the system administrators.
 
-```yml
+In each environment (`dev`, `staging`, `production`) we can find the list of users that will be created as system administrators.
+We use `host_vars` to declare per environment variables:
+```yaml
 # inventory/host_vars/<YOUR_HOST>/config.yml
 
-sysadmins:
-  sysadmin1:
-    key: "{{ lookup('env', 'HOME') }}/.ssh/id_rsa.pub"
+sys_admins:
+  - name: pepe
+    ssh_key: "../pub_keys/pepe.pub"
     state: present
-  sysadmin2:
-    key: ../pub_keys/sysadmin2.pub
+    - name: paco
+    ssh_key: "../pub_keys/paco.pub"
     state: present
 ```
 
-Where `sysadmin1` and `sysadmin2` are the name of sysadmins users in the server.
+The first time you run it against a brand new host you need to run it as `root` user.
+You'll also need passwordless SSH access to the `root` user.
+```
+ansible-playbook playbooks/sys_admins.yml --limit=<environment_name> -u root
+```
 
-Use `state: absent` to remove a user.
+For the following executions, the script will asssume that your user is included in the system administrators list for the given host.
 
-After executing this playbook the `odoo`'s authorized SSH keys is removed. To log in to the server as `odoo` user you should login with your sysadmin user and execute `sudo su odoo`.
-All other users must belong to `odoo` group to manage the system service.
+For example in the case of `development` environment the script will assume that the user that is running it is included in the system administrators [list](https://github.com/coopdevs/timeoverflow-provisioning/blob/master/inventory/host_vars/local.timeoverflow.org/config.yml#L5) for that environment.
 
-TASKS:
-- Create default_user
-- Create all sysadmin
-- Add ssh keys
-- Add sudo permisses
+To run the playbook as a system administrator just use the following command:
+```
+ansible-playbook playbooks/sys_admins.yml --limit=dev
+```
+Ansible will try to connect to the host using the system user. If your user as a system administrator is different than your local system user please run this playbook with the correct user using the `-u` flag.
+```
+ansible-playbook playbooks/sys_admins.yml --limit=dev -u <username>
+```
 
 ### Provision
 `provision.yml` - Installs and configures all required software on the server.
 
-The structure to create users is similar that `sysadmins`:
-
-```yml
-# inventory/host_vars/<YOUR_HOST>/config.yml
-
-users:
-  user1:
-    key: ../pub_keys/user1.pub
-    state: present
-```
-
-Where `user1` is your username and the name os your SSH key file.
-
 TASKS:
-- Users and Groups management
+- Create odoo user
 - Create directories structure
 - Install common packages
 - Install PostgreSQL database and create a user
@@ -115,18 +95,17 @@ TASKS:
 
 ## Roles
 
-### Sysadmin
+### sys_admin
 
-- Creates default user `odoo`
-- Creates sysadmins with permissions
+- Creates system administrator users and add SSH keys
 
 ### Common
 
-- Creates users (developers)
+- Create `odoo` user and group
 - Installs system packages
 - Creates folder structure and configures permissions
 - Creates virtualenv
-- Installs Postgres and NodeJS
+- Installs PostgreSQL and NodeJS
 - Adds service unit
     
 ### Odoo Config
@@ -136,27 +115,15 @@ TASKS:
 
 # Installation instructions
 
-For the first playbook (sysadmin.yml) is needed have a `odoo` user with your SSH pub key.
+### Step 1 - sys_admins
 
-If you not have this user but have acces like root, you can use the `default_user.sh` script.
+The **first time** thet execute this playbook use the user `root`
 
-#### Script to create default user.
+`ansible-playbook playbooks/sysadmins.yml --limit <environment_name> -u root`
 
-Execute the `script/default_user.sh` to create the `odoo` user and add your SSH key.
+All the next times use your personal system administrator user:
 
-System state:
-- Permit Root SSH login (modify `/etc/ssh/sshd_config`)
-- Access without password (copy your SSH key)
-
-### Step 1 - SysAdmins
-
-The **first time** thet execute this playbook use the user `odoo`
-
-`ansible-playbook playbooks/sysadmins.yml -u odoo`
-
-All the next times use your personal sysadmin user:
-
-`ansible-playbook playbooks/sysadmins.yml -u USER`
+`ansible-playbook playbooks/sysadmins.yml --limit <environment_name> -u USER`
 
 USER --> Your sysadmin user name.
 
@@ -184,12 +151,15 @@ USER --> Your user name (not need be sysadmin)
 
 Used to execute `odoo.service` and is a a superuser.
 
-### Sysadmins
+### System Administrators
 
 The sysadmins are the superusers of the environment.
 They have `sudo` access without password for all commands.
 
-**They can execute `sysadmins.yml`, `provision.yml`, `deploy.yml` and `deploy_custom_modules.yml` playbooks.**
+**They can execute `sys_admins.yml`, `provision.yml`, `deploy.yml` and `deploy_custom_modules.yml` playbooks.**
+
+------------------------------
+To rewrite:
 
 ### Users (Developers)
 
@@ -204,6 +174,8 @@ sudo systemctl restart odoo.service
 ```
 
 **They can execute `deploy.yml` and `deploy_custom_modules.yml` playbooks.**
+
+------------------------------
 
 ## DB Admin Password
 
