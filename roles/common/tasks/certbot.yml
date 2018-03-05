@@ -7,5 +7,5 @@
     name: geerlingguy.certbot
 
 - name: Create certificates using certbot
-  command: "certbot certonly --standalone --agree-tos --email {{ developer_email }} --noninteractive -d {{ inventory_hostname }}"
+  command: "{{ certbot_package }} certonly --standalone --agree-tos --email {{ developer_email }} --noninteractive -d {{ inventory_hostname }}"
 
