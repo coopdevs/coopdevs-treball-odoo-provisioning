@@ -13,6 +13,6 @@
     version: 2.7.2
     global: yes
 
-- name: create node sym link
+- name: Create node sym link
   shell: sudo ln -sf /usr/bin/nodejs /usr/bin/node
   when: ansible_distribution == 'Ubuntu' and ansible_distribution_version != '14.04'
