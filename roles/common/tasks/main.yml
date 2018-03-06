@@ -26,3 +26,5 @@
 - name: nginx
   include_role:
     name: jdauphant.nginx
+
+- include: odoo.yml

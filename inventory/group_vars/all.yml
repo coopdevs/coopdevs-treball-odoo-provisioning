@@ -7,8 +7,10 @@ remove_default_user_ssh_keys: true
 # venv path
 venv_path: /opt/.odoo_venv
 
-# Deploy path
+# Odoo
 odoo_path: /opt/odoo
+odoo_version: 10.0
+odoo_release: 20170914
 custom_modules_path: /opt/custom_modules
 
 # Use correct python2.7 interpeter

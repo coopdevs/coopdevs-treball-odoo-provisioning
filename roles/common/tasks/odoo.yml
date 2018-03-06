@@ -1,0 +1,30 @@
+---
+- name: Download and extract Odoo
+
+  unarchive:
+    src: "https://nightly.odoo.com/{{ odoo_version }}/nightly/src/odoo_{{ odoo_version }}.{{ odoo_release }}.tar.gz"
+    dest: "{{ odoo_path }}"
+    force: yes
+    remote_src: yes
+    extra_opts: [--strip-components=1]
+
+- name: Install Odoo python requirements
+  pip:
+    requirements: "{{ odoo_path }}/requirements.txt"
+    virtualenv: "{{ venv_path }}"
+
+- name: Build Odoo exec
+  shell: "cd {{ odoo_path }} && {{ venv_path }}/bin/python setup.py build"
+
+- name: Install Odoo dependencies
+  shell: "cd {{ odoo_path }} && {{ venv_path }}/bin/python setup.py install"
+
+- name: Add Odoo config
+  template:
+    src: odoo.conf.j2
+    dest: "{{ odoo_path }}/shared/odoo.conf"
+    mode: 0774
+    group: "{{ default_group }}"
+
+- name: Restart service (command)
+  command: "sudo systemctl restart odoo.service"
