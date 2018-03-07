@@ -6,12 +6,12 @@
 #     state: present                    | present (add or maintain) or absent (remove)
 
 # In development environment you can access to the server with `default_user`
-sysadmins:
-  danipalomar:
-    key: "../pub_keys/danipalomar.pub"
+sys_admins:
+  - name: danipalomar
+    ssh_key: "../pub_keys/danipalomar.pub"
     state: present
-  daniquilez:
-    key: "../pub_keys/daniquilez.pub"
+  - name: daniquilez
+    ssh_key: "../pub_keys/daniquilez.pub"
     state: present
 
 #users:
