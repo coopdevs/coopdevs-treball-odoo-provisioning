@@ -13,6 +13,9 @@ sys_admins:
   - name: daniquilez
     ssh_key: "../pub_keys/daniquilez.pub"
     state: present
+  - name: enricostano
+    ssh_key: "../pub_keys/enricostano.pub"
+    state: present
 
 #users:
 
