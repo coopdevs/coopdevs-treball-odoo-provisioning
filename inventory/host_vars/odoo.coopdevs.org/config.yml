@@ -8,7 +8,7 @@
 # In development environment you can access to the server with `default_user`
 sysadmins:
   danipalomar:
-    key: "~/.ssh/id_rsa.pub"
+    key: "../pub_keys/danipalomar.pub"
     state: present
   daniquilez:
     key: "../pub_keys/daniquilez.pub"
