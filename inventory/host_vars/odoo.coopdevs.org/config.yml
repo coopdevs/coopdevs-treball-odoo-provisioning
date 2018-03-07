@@ -7,9 +7,6 @@
 
 # In development environment you can access to the server with `default_user`
 sysadmins:
-  dani_sys:
-    key: "~/.ssh/id_rsa.pub"
-    state: absent
   danipalomar:
     key: "~/.ssh/id_rsa.pub"
     state: present
@@ -17,10 +14,7 @@ sysadmins:
     key: "../pub_keys/daniquilez.pub"
     state: present
 
-users:
-  dani_dev:
-    key: "~/.ssh/id_rsa.pub"
-    state: absent
+#users:
 
 remove_default_user_ssh_keys: false
 
