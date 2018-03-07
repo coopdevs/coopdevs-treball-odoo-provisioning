@@ -12,5 +12,6 @@
   hosts: odoo_servers
   roles:
     - role: sys_admins
+      become: yes
       vars:
         sys_admin_group: sysadmin
