@@ -4,7 +4,7 @@
 Description=Odoo server
 
 [Service]
-ExecStart={{ venv_path }}/bin/python {{ odoo_path }}/current/build/scripts-2.7/odoo -c {{ odoo_path }}/shared/odoo.conf
+ExecStart={{ venv_path }}/bin/python {{ odoo_path }}/build/scripts-2.7/odoo -c {{ odoo_path }}/shared/odoo.conf
 
 # Execute service like user
 User={{ default_user }}
