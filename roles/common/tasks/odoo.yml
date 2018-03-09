@@ -1,8 +1,7 @@
 ---
 - name: Download and extract Odoo
-
   unarchive:
-    src: "https://nightly.odoo.com/{{ odoo_version }}/nightly/src/odoo_{{ odoo_version }}.{{ odoo_release }}.tar.gz"
+    src: "{{ odoo_url }}"
     dest: "{{ odoo_path }}"
     force: yes
     remote_src: yes
