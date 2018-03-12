@@ -25,5 +25,7 @@
     mode: 0774
     group: "{{ default_group }}"
 
-- name: Restart service (command)
-  command: "sudo systemctl restart odoo.service"
+- name: Restart Odoo service
+  service:
+    name: odoo
+    state: restarted
