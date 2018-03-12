@@ -9,8 +9,6 @@
 
 - include: install_packages.yml
 
-- include: create_deploy_structure.yml
-
 - include: virtualenv.yml
 
 - include: nodejs.yml
