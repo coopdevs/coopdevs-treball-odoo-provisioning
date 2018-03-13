@@ -63,17 +63,7 @@ TASKS:
 - Install common packages
 - Install PostgreSQL database and create a user
 - Install NodeJS and LESS
-
-### Deploy
-`deploy.yml` - Deploys source code from Odoo Nightly and installs Python requirements.
-
-TASKS:
-- Install and create VirtualEnv
-- Ansistrano deploy:
-  - Download the source code
-  - Before link task: Build
-  - Before link task: Install requirements.txt
-- Add systemd service
+- Install Odoo
 
 ### Deploy Custom Modules
 `deploy_custom_modules.yml` - Deploys the custom or thirdy part modules that you need.
