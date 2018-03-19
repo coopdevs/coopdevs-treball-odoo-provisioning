@@ -24,13 +24,10 @@
     state: touch
     mode: 02777
 
-- name: Download and extract Odoo
-  unarchive:
-    src: "{{ odoo_url }}"
-    dest: "{{ odoo_path }}"
-    force: yes
-    remote_src: yes
-    extra_opts: [--strip-components=1]
+- name: Download Odoo
+  get_url:
+    url: "{{ odoo_url }}"
+    dest: "{{ odoo_download_path }}"
 
 - name: Install Odoo python requirements
   pip:
