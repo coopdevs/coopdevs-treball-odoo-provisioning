@@ -3,6 +3,7 @@
   file:
     path: "{{ item }}"
     state: directory
+    owner: "{{ default_user }}"
     group: "{{ default_group }}"
     mode: 02775
   with_items:
@@ -28,6 +29,17 @@
   get_url:
     url: "{{ odoo_url }}"
     dest: "{{ odoo_download_path }}"
+    owner: "{{ default_user }}"
+    group: "{{ default_group }}"
+    
+- name: Uncompress downloaded Odoo
+  unarchive:
+    src: "{{ odoo_download_path }}"
+    dest: "{{ odoo_path }}"
+    remote_src: yes
+    owner: "{{ default_user }}"
+    group: "{{ default_group }}"
+    extra_opts: [--strip-components=1]
 
 - name: Install Odoo python requirements
   pip:
@@ -36,7 +48,7 @@
 
 - name: Build Odoo exec
   shell: "cd {{ odoo_path }} && {{ venv_path }}/bin/python setup.py build"
-
+  
 - name: Install Odoo dependencies
   shell: "cd {{ odoo_path }} && {{ venv_path }}/bin/python setup.py install"
 
