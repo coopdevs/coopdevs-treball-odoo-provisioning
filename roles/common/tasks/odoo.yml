@@ -1,24 +1,14 @@
 ---
-- name: Create Odoo directory
+- name: Create Odoo directories
   file:
-    path: "{{ odoo_path }}"
+    path: "{{ item }}"
     state: directory
     group: "{{ default_group }}"
     mode: 02775
-
-- name: Create share directory
-  file:
-    path: "{{ odoo_path }}/shared"
-    state: directory
-    group: "{{ default_group }}"
-    mode: 02775
-
-- name: Create custom modules directory
-  file:
-    path: "{{ custom_modules_path }}/current"
-    state: directory
-    mode: 02775
-    group: "{{ default_group }}"
+  with_items:
+    - "{{ odoo_path }}"
+    - "{{ odoo_path }}/shared"
+    - "{{ custom_modules_path }}/current"
 
 - name: Create log dir "{{ log_path }}"
   file:
