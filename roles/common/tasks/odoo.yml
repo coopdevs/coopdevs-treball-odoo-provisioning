@@ -40,6 +40,7 @@
     owner: "{{ default_user }}"
     group: "{{ default_group }}"
     extra_opts: [--strip-components=1]
+    creates: "{{ odoo_path }}/setup.py"
 
 - name: Install Odoo python requirements
   pip:
