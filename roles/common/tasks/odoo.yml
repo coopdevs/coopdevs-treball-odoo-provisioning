@@ -47,9 +47,16 @@
     requirements: "{{ odoo_path }}/requirements.txt"
     virtualenv: "{{ venv_path }}"
 
-- name: Install Odoo exec
+- name: Get installed Odoo version (if any)
+  shell: "{{ odoo_python_path }} {{ odoo_bin_path }} --version | cut -d ' ' -f 3"
+  register: odoo_installed_version
+
+- name: Install Odoo
+  vars:
+    odoo_required_version: "{{ odoo_version }}-{{ odoo_release }}"
   shell: "cd {{ odoo_path }} && {{ venv_path }}/bin/python setup.py install"
-  
+  when: not odoo_installed_version.stdout == odoo_required_version
+
 - name: Add Odoo config
   template:
     src: odoo.conf.j2
