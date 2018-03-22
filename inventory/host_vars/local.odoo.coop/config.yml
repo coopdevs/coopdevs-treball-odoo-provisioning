@@ -28,3 +28,6 @@ log_path: /var/log/odoo
 log_level: debug
 
 developer_email:
+
+# Declare 'development_environment' var with "true" value to skip SSL and nginx tasks.
+development_environment: true
