@@ -20,9 +20,11 @@
 - include: addservice.yml
 
 - include: certbot.yml
+  when: not development_environment
 
 - name: nginx
   include_role:
     name: jdauphant.nginx
+  when: not development_environment
 
 - include: odoo.yml
