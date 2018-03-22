@@ -19,7 +19,12 @@
 
 - include: addservice.yml
 
-- include: certbot.yml
+- name: certbot for nginx
+  include_role: 
+    name: coopdevs.certbot_nginx
+  vars:
+      domain_name: "{{ inventory_hostname }}"
+      letsencrypt_email: "{{ developer_email }}"
   when: not development_environment
 
 - name: nginx
