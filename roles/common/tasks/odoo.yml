@@ -24,8 +24,8 @@
     mode: 02775
   with_items:
     - "{{ odoo_path }}"
-    - "{{ odoo_path }}/shared"
-    - "{{ custom_modules_path }}/current"
+    - "{{ odoo_config_path }}"
+    - "{{ custom_modules_path }}"
 
 - name: Create log dir "{{ log_path }}"
   file:
