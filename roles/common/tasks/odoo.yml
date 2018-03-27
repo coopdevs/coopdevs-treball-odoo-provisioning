@@ -1,4 +1,20 @@
 ---
+
+- name: Install system packages
+  apt:
+    update_cache: yes
+    pkg: "{{ item }}"
+    state: present
+  with_items:
+    - python-dev
+    - libxml2
+    - libxml2-dev
+    - libxslt1-dev
+    - libssl-dev
+    - libldap2-dev
+    - libsasl2-dev
+    - wkhtmltopdf
+
 - name: Create Odoo directories
   file:
     path: "{{ item }}"
@@ -47,7 +63,7 @@
     requirements: "{{ odoo_path }}/requirements.txt"
     virtualenv: "{{ venv_path }}"
 
- - name: Install nodejs packages
+- name: Install nodejs packages
   apt:
     pkg: "{{ item }}"
     state: present
@@ -72,7 +88,7 @@
 - name: Install Odoo
   vars:
     odoo_required_version: "{{ odoo_version }}-{{ odoo_release }}"
-  shell: "cd {{ odoo_path }} && {{ venv_path }}/bin/python setup.py install"
+  shell: "cd {{ odoo_path }} && {{ odoo_python_path }} setup.py install"
   when: not odoo_installed_version.stdout == odoo_required_version
 
 - name: Add Odoo config
