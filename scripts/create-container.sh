@@ -114,7 +114,7 @@ sudo lxc-attach -n "$NAME" -- /usr/sbin/useradd --uid "$project_uid" --gid "$pro
 
 # Add system user's SSH public key to `odoo` user
 echo "Copying system user's SSH public key to 'odoo' user in container"
-sudo lxc-attach -n "$NAME" -- /bin/bash -c "/bin/mkdir -p /home/odoo/.ssh && echo $ssh_key > /home/odoo/.ssh/authorized_keys"
+sudo lxc-attach -n "$NAME" -- sudo -u odoo -- sh -c "/bin/mkdir -p /home/odoo/.ssh && echo $ssh_key > /home/odoo/.ssh/authorized_keys"
 
 # Install python2.7 in container
 echo "Installing Python2.7 in container $NAME"
