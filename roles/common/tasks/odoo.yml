@@ -79,7 +79,6 @@
 
 - name: Create node sym link
   shell: sudo ln -sf /usr/bin/nodejs /usr/bin/node
-  when: ansible_distribution == 'Ubuntu' and ansible_distribution_version != '14.04'
 
 - name: Get installed Odoo version (if any)
   shell: "{{ odoo_python_path }} {{ odoo_bin_path }} --version | cut -d ' ' -f 3"
