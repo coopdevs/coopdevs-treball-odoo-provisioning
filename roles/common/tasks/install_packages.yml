@@ -5,15 +5,8 @@
     pkg: "{{ item }}"
     state: present
   with_items:
-    - python-dev
     - virtualenv
-    - libxml2
-    - libxml2-dev
-    - libxslt1-dev
-    - lib32z1-dev
-    - libssl-dev
-    - zlib1g-dev
-    - libldap2-dev
-    - libsasl2-dev
     - git
-    - wkhtmltopdf
+    - lib32z1-dev
+    - zlib1g-dev
+
