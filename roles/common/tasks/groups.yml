@@ -1,4 +1,0 @@
----
-- group:
-    name: "{{ default_group }}"
-    state: present
