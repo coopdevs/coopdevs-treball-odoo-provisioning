@@ -3,4 +3,4 @@
   hosts: odoo_servers
   become: yes
   roles:
-    - role: common
+    - role: geerlingguy.security
