@@ -1,8 +1,9 @@
 ---
-
 default_user: odoo
 default_group: odoo
 remove_default_user_ssh_keys: true
+
+database_name: odoo
 
 # venv path
 venv_path: /opt/.odoo_venv
@@ -20,10 +21,6 @@ custom_modules_path: /opt/custom_modules
 
 # Use correct python2.7 interpeter
 ansible_python_interpreter: "/usr/bin/python2.7"
-
-postgresql_users:
-  - name: "{{ default_user }}"
-    role_attr_flags: CREATEDB
 
 # Nginx configuration
 nginx_configs:
