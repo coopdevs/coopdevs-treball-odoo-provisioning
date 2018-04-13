@@ -8,7 +8,7 @@
     - role: geerlingguy.postgresql
       vars:
         postgresql_users:
-          - name: "{{ odoo_user }}"
+          - name: "{{ default_user }}"
             role_attr_flags: CREATEDB
         postgresql_databases:
           - name: "{{ database_name }}"
