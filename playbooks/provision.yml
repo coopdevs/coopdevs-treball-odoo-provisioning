@@ -15,3 +15,5 @@
 
     - role: jdauphant.nginx
       when: not development_environment
+
+    - role: coopdevs.odoo
