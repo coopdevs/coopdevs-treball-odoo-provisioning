@@ -95,22 +95,24 @@ echo "Copying system user's SSH public key to 'root' user in container"
 sudo lxc-attach -n "$NAME" -- /bin/bash -c "/bin/mkdir -p /root/.ssh && echo $ssh_key > /root/.ssh/authorized_keys"
 
 # Find `uid` of project directory
-project_user=$(stat -c '%U' "$PROJECT_PATH")
-project_uid=$(id -u "$project_user")
+# project_user=$(stat -c '%U' "$PROJECT_PATH")
+# project_uid=$(id -u "$project_user")
 
 # Find `gid` of project directory
-project_group=$(stat -c '%G' "$PROJECT_PATH")
-project_gid=$(id -g "$project_group")
+# project_group=$(stat -c '%G' "$PROJECT_PATH")
+# project_gid=$(id -g "$project_group")
 
 # Delete existing user with same uid and gid of project directory
-existing_user=$(sudo lxc-attach -n "$NAME" -- id -nu "$project_uid" 2>&1)
-sudo lxc-attach -n "$NAME" -- /usr/sbin/userdel -r "$existing_user"
+# existing_user=$(sudo lxc-attach -n "$NAME" -- id -nu "$project_uid" 2>&1)
+# sudo lxc-attach -n "$NAME" -- /usr/sbin/userdel -r "$existing_user"
 
 # Create `odoo` group with same `gid` of project directory
-sudo lxc-attach -n "$NAME" -- /usr/sbin/groupadd --gid "$project_gid" odoo
+# sudo lxc-attach -n "$NAME" -- /usr/sbin/groupadd --gid "$project_gid" odoo
+sudo lxc-attach -n "$NAME" -- /usr/sbin/groupadd odoo
 
 # Create `odoo` user with same `uid` and `gid` of project directory
-sudo lxc-attach -n "$NAME" -- /usr/sbin/useradd --uid "$project_uid" --gid "$project_gid" --create-home --shell /bin/bash odoo
+# sudo lxc-attach -n "$NAME" -- /usr/sbin/useradd --uid "$project_uid" --gid "$project_gid" --create-home --shell /bin/bash odoo
+sudo lxc-attach -n "$NAME" -- /usr/sbin/useradd --create-home --shell /bin/bash -g odoo odoo
 
 # Add system user's SSH public key to `odoo` user
 echo "Copying system user's SSH public key to 'odoo' user in container"
