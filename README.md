@@ -19,14 +19,27 @@ ansible-galaxy install -r requirements.yml
 
 ### sys_admins.yml
 
+This playbook uses the community role [sys-admins-role](https://github.com/coopdevs/sys-admins-role).
+
 This playbook will prepare the host to allow access to all the system administrators.
 
+```yaml
+# playbooks/my_playbook.yml
+- name: Create all the users for system administration
+  roles:
+    - role: coopdevs.sys-admins-role
+      vars:
+        sys_admin_group: sysadmin
+        sys_admins: "{{ system_administrators }}"
+```
+
 In each environment (`dev`, `staging`, `production`) we can find the list of users that will be created as system administrators.
+
 We use `host_vars` to declare per environment variables:
 ```yaml
 # inventory/host_vars/<YOUR_HOST>/config.yml
 
-sys_admins:
+system_administrators:
   - name: pepe
     ssh_key: "../pub_keys/pepe.pub"
     state: present
