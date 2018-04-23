@@ -96,26 +96,6 @@ TASKS:
 - Ansistrano git deploy.
 - Update odoo.service to add addons.
 
-## Roles
-
-### sys_admin
-
-- Creates system administrator users and add SSH keys
-
-### Common
-
-- Create `odoo` user and group
-- Installs system packages
-- Creates folder structure and configures permissions
-- Creates virtualenv
-- Installs PostgreSQL and NodeJS
-- Adds service unit
-    
-### Odoo Config
-
-- Creates Odoo configuration file
-- Restarts Odoo service
-
 # Installation instructions
 
 ### Step 1 - sys_admins
