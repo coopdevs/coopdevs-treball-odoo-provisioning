@@ -11,7 +11,7 @@
 - name: Create all the users for system administration
   hosts: odoo_servers
   roles:
-    - role: coopdevs.sys_admins
+    - role: coopdevs.sys-admins-role
       become: yes
       vars:
         sys_admin_group: sysadmin
