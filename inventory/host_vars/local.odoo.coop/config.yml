@@ -8,7 +8,7 @@
 # In development environment you can access to the server with `default_user`
 development_user: "{{ lookup('env', 'USER') }}"
 
-sys_admins:
+system_administrators:
   - name: odoo
     ssh_key: "~/.ssh/id_rsa.pub"
     state: present
