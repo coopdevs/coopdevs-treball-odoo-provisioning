@@ -181,7 +181,7 @@ In the development environment (`local.odoo.net`) you must use the sysadmin user
 
 ## Using LXC Containers
 
-In order to create a development environment, we use the [devenv]() tool. It uses [LXC](https://linuxcontainers.org/) to isolate the development environment.
+In order to create a development environment, we use the [devenv](https://github.com/coopdevs/devenv) tool. It uses [LXC](https://linuxcontainers.org/) to isolate the development environment.
 
 This tool search a configuration dotfile in the project path. You must create a `.devenv`  file with the next declared variables:
 
