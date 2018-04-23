@@ -13,5 +13,6 @@
   roles:
     - role: coopdevs.sys_admins
       become: yes
-      sys_admin_group: sysadmin
-      sys_admins: "{{ system_administrators }}"
+      vars:
+        sys_admin_group: sysadmin
+        sys_admins: "{{ system_administrators }}"
