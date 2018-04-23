@@ -1,23 +1,6 @@
 ---
-default_user: odoo
-default_group: odoo
-remove_default_user_ssh_keys: true
-
+odoo_user: odoo
 database_name: odoo
-
-# venv path
-venv_path: /opt/.odoo_venv
-
-# Odoo
-odoo_version: 10.0
-odoo_release: 20170914
-odoo_path: /opt/odoo
-odoo_url: "https://nightly.odoo.com/{{ odoo_version }}/nightly/src/odoo_{{ odoo_version }}.{{ odoo_release }}.tar.gz"
-odoo_download_path: /tmp/odoo_{{ odoo_version }}.{{ odoo_release }}.tar.gz
-odoo_bin_path: "{{ odoo_path }}/build/scripts-2.7/odoo"
-odoo_python_path: "{{ venv_path }}/bin/python"
-odoo_config_path: /etc/odoo
-custom_modules_path: /opt/custom_modules
 
 # Use correct python2.7 interpeter
 ansible_python_interpreter: "/usr/bin/python2.7"

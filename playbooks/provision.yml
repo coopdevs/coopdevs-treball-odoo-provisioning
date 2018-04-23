@@ -8,7 +8,7 @@
     - role: geerlingguy.postgresql
       vars:
         postgresql_users:
-          - name: "{{ default_user }}"
+          - name: "{{ odoo_user }}"
             role_attr_flags: CREATEDB
         postgresql_databases:
           - name: "{{ database_name }}"
@@ -16,10 +16,12 @@
     - role: coopdevs.certbot_nginx
       vars:
           domain_name: "{{ inventory_hostname }}"
-          letsencrypt_email: "{{ developer_email }}"
+          letsencrypt_email: "{{ certificate_authority_email }}"
       when: not development_environment
 
     - role: jdauphant.nginx
       when: not development_environment
 
     - role: coopdevs.odoo-role
+      vars:
+        odoo_db_admin_password: "{{ odoo_admin_password }}"

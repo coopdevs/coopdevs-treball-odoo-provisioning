@@ -1,9 +1,5 @@
-[staging]
-odoo.coopdevs.org
-
 [dev]
 local.odoo.coop
 
 [odoo_servers:children]
 dev
-staging
