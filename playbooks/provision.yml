@@ -22,4 +22,4 @@
     - role: jdauphant.nginx
       when: not development_environment
 
-    - role: coopdevs.odoo
+    - role: coopdevs.odoo-role
