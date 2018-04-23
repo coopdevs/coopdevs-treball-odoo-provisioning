@@ -181,11 +181,25 @@ In the development environment (`local.odoo.net`) you must use the sysadmin user
 
 ## Using LXC Containers
 
-In order to run the `scripts/create-contqainer.sh` script, you need install [LXC](https://linuxcontainers.org/).
+In order to create a development environment, we use the [devenv]() tool. It uses [LXC](https://linuxcontainers.org/) to isolate the development environment.
 
-The script in `scripts/create-container.sh` will help you to create a development environment using LXC containers.
+This tool search a configuration dotfile in the project path. You must create a `.devenv`  file with the next declared variables:
 
-The script will:
+```yaml
+# odoo-provisioning/.devenv
+NAME="odoo"
+DISTRIBUTION="ubuntu"
+RELEASE="xenial"
+ARCH="amd64"
+LXC_CONFIG="/tmp/ubuntu.$NAME.conf"
+HOST="local.$NAME.coop"
+PROJECT_NAME="odoo"
+PROJECT_PATH="${PWD%/*}/$PROJECT_NAME"
+```
+
+You can modify them to change the environment.
+
+Devenv will:
 
 * Create container
 * Mount your project directory into container in `/opt/<project_name>`
@@ -196,6 +210,4 @@ The script will:
 * Install python2.7 in container
 * Run `sys_admins.yml` playbook
 
-When the execution ends, you have a container ready to provision and deploy the app.
-
-__You can find the configuration variables in `scripts/confg/lxc.cfg`.__
+When the execution ends, you have a container ready to execute sys_admins playbook, provision and deploy the app.
