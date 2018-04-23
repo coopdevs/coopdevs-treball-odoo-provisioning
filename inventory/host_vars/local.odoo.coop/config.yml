@@ -1,11 +1,5 @@
 ---
-# Add your ssh public key in pub_keys folder and add it to this list
-# users:                                | sysadmins or users
-#    example:                           | Your name
-#     key: ../pub_keys/ssh_pub_key.pub  | Key file path
-#     state: present                    | present (add or maintain) or absent (remove)
-
-# In development environment you can access to the server with `default_user`
+# In development environment a user with same name as your system user will be created
 development_user: "{{ lookup('env', 'USER') }}"
 
 system_administrators:
@@ -18,16 +12,8 @@ system_administrators:
 
 developers: []
 
-remove_default_user_ssh_keys: false
+# Let's Encrypt conf
+certificate_authority_email:
 
-custom_modules_repo: https://github.com/danypr92/odoo-organization-custom-modules.git
-custom_modules_repo_branch: master
-
-log_path: /var/log/odoo
-# Log levels: critical, error, warn, debug
-log_level: debug
-
-developer_email:
-
-# Declare 'development_environment' var with "true" value to skip SSL and nginx tasks.
+# Set 'development_environment' to "true" to skip SSL and nginx tasks
 development_environment: true
