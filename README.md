@@ -195,6 +195,8 @@ LXC_CONFIG="/tmp/ubuntu.$NAME.conf"
 HOST="local.$NAME.coop"
 PROJECT_NAME="odoo"
 PROJECT_PATH="${PWD%/*}/$PROJECT_NAME"
+DEVENV_USER="odoo"
+DEVENV_GROUP="odoo"
 ```
 
 You can modify them to change the environment.
