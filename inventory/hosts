@@ -1,5 +1,5 @@
 [dev]
-local.odoo.coop
+local.odoo-coopdevs.coop
 
 [odoo_servers:children]
 dev
