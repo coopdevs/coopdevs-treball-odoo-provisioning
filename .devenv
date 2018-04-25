@@ -1,10 +1,10 @@
 # Vars to use in lxc-create
-NAME="odoo"
+NAME="odoo-coopdevs"
 DISTRIBUTION="ubuntu"
 RELEASE="xenial"
 ARCH="amd64"
 HOST="local.$NAME.coop"
-PROJECT_NAME="odoo"
+PROJECT_NAME="odoo-coopdevs"
 PROJECT_PATH="${PWD%/*}/$PROJECT_NAME"
 DEVENV_USER="odoo"
 DEVENV_GROUP="odoo"
