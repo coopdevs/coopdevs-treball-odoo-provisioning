@@ -1,5 +1,9 @@
+[production]
+odoo.coopdevs.org
+
 [dev]
 local.odoo-coopdevs.coop
 
 [odoo_servers:children]
 dev
+production
