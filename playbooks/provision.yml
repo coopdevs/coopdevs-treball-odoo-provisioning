@@ -6,12 +6,15 @@
     - role: geerlingguy.security
 
     - role: geerlingguy.postgresql
+
+    - role: postgresql-odoo
       vars:
         postgresql_users:
           - name: "{{ odoo_user }}"
             role_attr_flags: CREATEDB
         postgresql_databases:
           - name: "{{ database_name }}"
+            owner: "{{ odoo_user }}"
 
     - role: coopdevs.certbot_nginx
       vars:
@@ -25,3 +28,4 @@
     - role: coopdevs.odoo-role
       vars:
         odoo_db_admin_password: "{{ odoo_admin_password }}"
+        odoo_db_name: "{{ database_name }}"
