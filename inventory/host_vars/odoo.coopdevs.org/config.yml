@@ -1,4 +1,6 @@
 ---
+odoo_install_core_modules: "base,l10n_es,account,project,analytic,sale"
+
 # In development environment a user with same name as your system user will be created
 system_administrators:
   - name: daniel
@@ -13,3 +15,8 @@ certificate_authority_email: "info@coopdevs.org"
 
 # Set 'development_environment' to "true" to skip SSL and nginx tasks
 development_environment:
+
+code_from: "git"
+odoo_version: 11.0
+odoo_git_url: "https://github.com/OCA/OCB.git"
+odoo_head: "8ef3986d58a097a04502d9ca1ee0a860d7230723"
