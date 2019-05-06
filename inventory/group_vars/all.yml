@@ -1,4 +1,6 @@
 ---
+odoo_provisioning_version: "0.0.0" # Make this inventory crash. See README.md
+
 odoo_user: odoo
 odoo_edition: oca
 odoo_core_modules: "base,l10n_es,account,project,analytic,sale"
